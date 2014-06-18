@@ -142,7 +142,7 @@
                 <StringItem index="0" value="Responsable Inscripto"/>
                 <StringItem index="1" value="Exento"/>
                 <StringItem index="2" value="Consumidor Final"/>
-                <StringItem index="3" value="BU"/>
+                <StringItem index="3" value="Monotributo"/>
               </StringArray>
             </Property>
           </Properties>

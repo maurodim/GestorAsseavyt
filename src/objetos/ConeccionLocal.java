@@ -39,7 +39,7 @@ public class ConeccionLocal implements Transaccionable{
     public ConeccionLocal() {
               Connection dbConnection = null;
  //String strUrl = "jdbc:derby://localhost:1527/respaldo;create=true";
-               String strUrl = "jdbc:derby:C:\\Gestion\\DBG\\gestion.db";
+               String strUrl = "jdbc:derby:C:\\Gestion\\DBAseavyt\\gestion.db";
             try {
                 Class.forName(driver1).newInstance();
                 dbConnection = DriverManager.getConnection (strUrl);
@@ -127,7 +127,7 @@ public class ConeccionLocal implements Transaccionable{
         Connection dbConnection = null;
         try {
             
-                String strUrl = "jdbc:derby:C:\\Gestion\\DBG\\gestion.db;create=true";
+                String strUrl = "jdbc:derby:C:\\Gestion\\DBAseavyt\\gestion.db;create=true";
                     Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                      dbConnection = DriverManager.getConnection (strUrl,"","");
                      String sql="CREATE TABLE APP.articulos(id integer generated always as identity (start with 1,increment by 1), BARRAS   varchar(30) default NULL, NOMBRE   varchar(49) default NULL, SERVICIO   double default 0, COSTO   double default 0.00, PRECIO   double default NULL, MINIMO INTEGER default NULL, STOCK  INTEGER default NULL, PROVEEDOR  INTEGER default NULL, RUBRON  varchar(12) default NULL, ALTA  varchar(19) default NULL, INHABILITADO  INTEGER default 0 , idRubro   INTEGER default 1,equivalencia  double default 1.00, modificaPrecio  INTEGER default 0, modificaServicio INTEGER default 0,recargo double default 1.00)";
@@ -143,7 +143,7 @@ public class ConeccionLocal implements Transaccionable{
                      PreparedStatement pstm2=dbConnection.prepareStatement(sql);
                      pstm2.execute();
                      pstm2.close();
-                     sql="CREATE TABLE APP.coeficienteslistas (id integer generated always as identity (start with 1,increment by 1),coeficiente  double not null,descripcion  varchar(30) not null,montocuota double default 0.00)";
+                     sql="CREATE TABLE APP.coeficienteslistas (id integer generated always as identity (start with 1,increment by 1),coeficiente  double default 1.00,descripcion  varchar(30) not null,montocuota double default 0.00,montocuota2 double default 0.00)";
                      PreparedStatement pstm3=dbConnection.prepareStatement(sql);
                      pstm3.execute();
                      pstm3.close();

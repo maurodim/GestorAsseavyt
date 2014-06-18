@@ -61,7 +61,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Cond Iva:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Responsable Inscripto", "Exento", "Consumidor Final", "BU" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Responsable Inscripto", "Exento", "Consumidor Final", "Monotributo" }));
 
         jLabel4.setText("N° de CUIT:");
 
@@ -158,7 +158,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();

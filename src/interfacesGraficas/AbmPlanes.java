@@ -6,16 +6,25 @@
 
 package interfacesGraficas;
 
+import Conversores.Numeros;
+import interfaces.Generable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import objetos.Planes;
+
 /**
  *
  * @author Usuario
  */
 public class AbmPlanes extends javax.swing.JInternalFrame {
-
+    private ArrayList listadoPlanes;
+    private Planes plan1;
     /**
      * Creates new form AbmPlanes
      */
     public AbmPlanes() {
+        listadoPlanes=new ArrayList();
+        plan1=new Planes();
         initComponents();
         this.jPanel2.setVisible(false);
     }
@@ -51,23 +60,42 @@ public class AbmPlanes extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setTitle("Administrador de Planes");
 
-        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 153, 153)));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153), new java.awt.Color(204, 204, 204)));
 
         jLabel1.setText("PLANES");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Generable genera=new Planes();
+        listadoPlanes=genera.Listar();
+        Planes plan=new Planes();
+        Iterator il=listadoPlanes.listIterator();
+        while(il.hasNext()){
+            plan=(Planes)il.next();
 
-        jLabel2.setText("jLabel2");
+            jComboBox1.addItem(plan.getDescripcion());
+        }
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("jLabel3");
+        jLabel2.setText("Monto Cuota 1");
+
+        jLabel3.setText("Monto Cuota 2");
 
         jButton1.setText("GUARDAR");
-
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("NUEVO");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,21 +139,20 @@ public class AbmPlanes extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(102, 102, 102)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Plan"));
 
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Descripcion");
 
-        jTextField3.setText("jTextField3");
+        jLabel5.setText("Monto Cuota 1");
 
-        jLabel5.setText("jLabel5");
-
-        jLabel6.setText("jLabel6");
-
-        jTextField4.setText("jTextField4");
-
-        jTextField5.setText("jTextField5");
+        jLabel6.setText("Monto Cuota 2");
 
         jButton3.setText("GUARDAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -144,7 +171,7 @@ public class AbmPlanes extends javax.swing.JInternalFrame {
                     .addComponent(jTextField5)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 36, Short.MAX_VALUE)))
+                        .addGap(0, 30, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -164,7 +191,7 @@ public class AbmPlanes extends javax.swing.JInternalFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,6 +217,45 @@ public class AbmPlanes extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.jPanel2.setVisible(true);
+        this.jTextField3.requestFocus();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        int posicion=this.jComboBox1.getSelectedIndex();
+        //Planes plan=new Planes();
+        plan1=(Planes)listadoPlanes.get(posicion);
+        this.jTextField1.setText(String.valueOf(plan1.getMonto1()));
+        this.jTextField2.setText(String.valueOf(plan1.getMonto2()));
+        this.jTextField1.selectAll();
+        this.jTextField1.requestFocus();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        plan1=new Planes();
+        Generable genera=new Planes();
+        plan1.setDescripcion(this.jTextField3.getText());
+        Double mont=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField4.getText()));
+        plan1.setMonto1(mont);
+        mont=0.00;
+        mont=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField5.getText()));
+        plan1.setMonto2(mont);
+        genera.Alta(plan1);
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       Double monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField1.getText()));
+       plan1.setMonto1(monto);
+       monto=0.00;
+       monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField2.getText()));
+       plan1.setMonto2(monto);
+       Generable gen=new Planes();
+       gen.Modificacion(plan1);
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -269,7 +269,7 @@
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;    @Override&#xa;    protected void paintComponent(Graphics grphcs) {&#xa;        super.paintComponent(grphcs);&#xa;        grphcs.drawImage(img, 0, 0, null);&#xa;    }&#xa;&#xa;    @Override&#xa;    public Dimension getPreferredSize() {&#xa;        return new Dimension(800,600);&#xa;    }&#xa;&#xa;}"/>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {&#xa;if(coneccionRemota){ &#xa;img = ImageIO.read(new URL(&quot;http://www.maurodi.net/imagenes/saynomore.jpg&quot;));&#xa;}&#xa;} catch (Exception ex) {&#xa;            ex.printStackTrace();&#xa;        }"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="try {&#xa;if(coneccionRemota){ &#xa;img = null;//ImageIO.read(new URL(&quot;http://www.maurodi.net/imagenes/saynomore.jpg&quot;));&#xa;}&#xa;} catch (Exception ex) {&#xa;            ex.printStackTrace();&#xa;        }"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
 

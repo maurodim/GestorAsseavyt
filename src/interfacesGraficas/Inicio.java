@@ -132,7 +132,7 @@ public class Inicio extends javax.swing.JFrame {
 
         try {
             if(coneccionRemota){
-                img = ImageIO.read(new URL("http://www.maurodi.net/imagenes/saynomore.jpg"));
+                img = null;//ImageIO.read(new URL("http://www.maurodi.net/imagenes/saynomore.jpg"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
