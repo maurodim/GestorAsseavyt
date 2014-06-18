@@ -238,6 +238,9 @@ public class ConeccionLocal implements Transaccionable{
                     sql="insert into listcli (cod_client,razon_soci,domicilio,cond_vta,telefono_1,listadeprecio,numerodecuit,cupodecredito,empresa,tipo_iva,coeficiente) values ('999999','CONSUMIDOR FINAL','NO ASIGNADO',1,'NO ASIGNADO',1,'1',0.00,'SD',1,1)";
                     pstm25=dbConnection.prepareStatement(sql);
                     pstm25.execute();
+                    sql="create table app.cuotas (id integer generated always as identity (start with 1,increment by 1),vencimiento1 date,vencimiento2 date,periodo varchar(10))";
+                    pstm25=dbConnection.prepareStatement(sql);
+                    pstm25.execute();
                     pstm25.close();
                     JOptionPane.showMessageDialog(null,"BASE DE DATOS CORRECTAMENTE CREADA");
                     /*
