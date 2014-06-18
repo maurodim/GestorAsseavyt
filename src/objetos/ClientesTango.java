@@ -64,6 +64,16 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
         private static Hashtable listadoPorNom=new Hashtable();
         private static int signal=0;
         private Double montoCuota;
+        private Integer idCuota;
+
+    public Integer getIdCuota() {
+        return idCuota;
+    }
+
+    public void setIdCuota(Integer idCuota) {
+        this.idCuota = idCuota;
+    }
+        
 
     public Double getMontoCuota() {
         return montoCuota;
@@ -113,7 +123,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
             //}else{
              
                 tra=new ConeccionLocal();
-                sql="select codMMd,listcli.COD_CLIENT,listcli.RAZON_SOCI,listcli.DOMICILIO,listcli.COND_VTA,(listcli.LISTADEPRECIO)as NRO_LISTA,(select coeficienteslistas.montocuota from coeficienteslistas where coeficienteslistas.id=listcli.listadeprecio)as montocuota,(listcli.NUMERODECUIT)as IDENTIFTRI,listcli.empresa,listcli.TELEFONO_1,listcli.coeficiente,(listcli.CUPODECREDITO) AS CUPO_CREDI,(select sum(movimientosclientes.monto) from movimientosclientes where movimientosclientes.numeroproveedor=listcli.codmmd)as saldo,listcli.TIPO_IVA from listcli";
+                sql="select codMMd,listcli.COD_CLIENT,listcli.RAZON_SOCI,listcli.DOMICILIO,listcli.COND_VTA,(listcli.LISTADEPRECIO)as NRO_LISTA,(select coeficienteslistas.montocuota from coeficienteslistas where coeficienteslistas.id=listcli.listadeprecio)as montocuota,(listcli.NUMERODECUIT)as IDENTIFTRI,listcli.empresa,listcli.TELEFONO_1,listcli.coeficiente,(listcli.CUPODECREDITO) AS CUPO_CREDI,(select sum(movimientosclientes.monto) from movimientosclientes where movimientosclientes.numeroproveedor=listcli.codmmd)as saldo,listcli.TIPO_IVA  from listcli";
             //}
             //sql="select *,(select coeficienteslistas.coeficiente from coeficienteslistas where coeficienteslistas.id=listcli.NRO_LISTA)as coeficiente,(select sum(movimientosclientes.monto) from movimientosclientes where pagado=0 and movimientosclientes.numeroProveedor=listcli.codMMd)as saldo from listcli";
             System.out.println("CLIENTES "+sql);
@@ -145,6 +155,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
                 cli.setMontoCuota(rs.getDouble("montocuota"));
                 cli.setSaldo(rs.getDouble("saldo"));
                 cli.setSaldoActual(rs.getDouble("saldo"));
+                //cli.setIdCuota(rs.getInt("idcuota"));
                 //cli.setNumeroPedido(rs.getString(3));
                 //cli.setObservaciones(rs.getString(5));
                 System.out.println("CLIENTE "+cli.getRazonSocial() +"COMENTARIO "+cli.getCodigoCliente());
@@ -631,10 +642,29 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
        Iterator itL=listado.listIterator();
        while(itL.hasNext()){
            cliente=(ClientesTango)itL.next();
-           sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,pagado,idcaja) values ("+cliente.getCodigoId()+","+cliente.getMontoCuota()+","+numeroRecibo+","+Inicio.usuario.getNumeroId()+",1,"+Inicio.sucursal+",0,0,0)";
+           sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,pagado,idcaja,idCuota) values ("+cliente.getCodigoId()+","+cliente.getMontoCuota()+","+numeroRecibo+","+Inicio.usuario.getNumeroId()+",1,"+Inicio.sucursal+",0,0,0,"+cliente.getIdCuota()+")";
            tra.guardarRegistro(sql);          
        }
        cargarMap();
     }
-        
+    public ArrayList listarCuotas(){
+        ArrayList listado=new ArrayList();
+        String sql="select numeroproveedor,idcuota,(select listcli.razon_soci from listcli where listcli.codmmd=movimientosclientes.numeroproveedor)as nombre,monto from movimientosclientes where pagado=0 and tipocomprobante=1";
+        Transaccionable tra=new ConeccionLocal();
+        ResultSet rs=tra.leerConjuntoDeRegistros(sql);
+            try {
+                while(rs.next()){
+                    ClientesTango cliente=new ClientesTango();
+                    cliente.setCodigoId(rs.getInt("numeroproveedor"));
+                    cliente.setRazonSocial(rs.getString("nombre"));
+                    cliente.setIdCuota(rs.getInt("idcuota"));
+                    cliente.setMontoCuota(rs.getDouble("monto"));
+                    listado.add(cliente);
+                }
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ClientesTango.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return listado;
+    }  
 }

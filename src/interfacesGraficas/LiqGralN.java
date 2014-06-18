@@ -4,12 +4,22 @@
  */
 package interfacesGraficas;
 
+import interfaces.Busquedas;
+import interfaces.Generable;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import objetos.ClientesTango;
+import objetos.Cuotas;
 
 
 
@@ -18,7 +28,8 @@ import java.util.logging.Logger;
  * @author mauro
  */
 public class LiqGralN extends javax.swing.JInternalFrame {
-
+    private String fecha=null;
+    private String fecha3=null;
     /**
      * Creates new form LiqGralN
      */
@@ -56,7 +67,7 @@ public class LiqGralN extends javax.swing.JInternalFrame {
 
         jLabel4.setText("2 do Vencimiento");
 
-        jButton2.setText("Generar Liquidacion");
+        jButton2.setText("Generar Cuota");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -125,7 +136,61 @@ public class LiqGralN extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Calendar fecha1=this.dateChooserCombo1.getSelectedDate();
+        Calendar fecha2=this.dateChooserCombo2.getSelectedDate();
+        String periodo=null;
+        DecimalFormat fr=new DecimalFormat("00");
+        //Calendar c1=Calendar.getInstance();
+	//Calendar c2=new GregorianCalendar();
+	String dia=Integer.toString(fecha1.get(Calendar.DAY_OF_MONTH));
+	String mes=Integer.toString(fecha1.get(Calendar.MONTH));
+	String ano=Integer.toString(fecha1.get(Calendar.YEAR));
+	
+        int da=Integer.parseInt(dia);
+        int me=Integer.parseInt(mes);
+        me++;
+        dia=fr.format(da);
+        mes=fr.format(me);
+        fecha=ano+"-"+mes+"-"+dia;
+	periodo=mes+"/"+ano;
+        //fecha="23/12/2011";
+        String fh=ano+"-"+mes+"-"+dia;
+        // a partir de aca lo de fecha2
         
+        dia=Integer.toString(fecha2.get(Calendar.DAY_OF_MONTH));
+        mes=Integer.toString(fecha2.get(Calendar.MONTH));
+        ano=Integer.toString(fecha2.get(Calendar.YEAR));
+        da=Integer.parseInt(dia);
+        me=Integer.parseInt(mes);
+        me++;
+        dia=fr.format(da);
+        mes=fr.format(me);
+        fecha3=ano+"-"+mes+"-"+dia;
+        System.err.println(fecha+"  / 2 do:"+fecha3);
+        Cuotas cuota=new Cuotas();
+        Generable genera=new Cuotas();
+        cuota.setPeriodo(periodo);
+        cuota.setVencimiento1(fecha);
+        cuota.setVencimiento2(fecha3);
+        genera.Alta(cuota);
+        Integer idCuota=0;
+        Iterator ic=genera.Listar().listIterator();
+        while(ic.hasNext()){
+            cuota=(Cuotas)ic.next();
+            idCuota=cuota.getId();
+        }
+        ArrayList listadoClientes=new ArrayList();
+        Busquedas bus=new ClientesTango();
+        ClientesTango cliente=new ClientesTango();
+        listadoClientes=bus.listar("");
+        Iterator il=listadoClientes.listIterator();
+        while(il.hasNext()){
+            cliente=(ClientesTango)il.next();
+            cliente.setIdCuota(idCuota);
+        }
+        
+        cliente.emitirCuotas(listadoClientes);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
