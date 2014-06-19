@@ -43,8 +43,8 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
     private static Comprobantes comp=new Comprobantes();
     
     public IngresoDePedidos() {
-        //Articulos.CargarMap();
-        cliT=new ClientesTango("1AG");
+        Articulos.CargarMap();
+        cliT=new ClientesTango("1");
         //cliT=(ClientesTango)oob;
         //comp.setCliente(cliT);
         initComponents();
@@ -407,9 +407,13 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
             jTextField1.setText(arti.getCodigoAsignado());
             jTextField2.setText("1");
             this.jLabel8.setText(arti.getDescripcionArticulo());
-            if(arti.getModificaPrecio()){
+            System.out.println("modifica precio "+arti.getModificaPrecio());
+            
+            if(arti.getModificaPrecio()==1){
                 this.jLabel7.setVisible(true);
                 this.jTextField4.setVisible(true);
+                
+                this.jTextField4.setText(Numeros.ConvertirNumero(arti.getPrecioUnitarioNeto()));
                 //this.jTextField4.setEnabled(true);
                // this.jCheckBox1.setVisible(false);
                 
@@ -429,15 +433,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
                     Calendar calendario=new GregorianCalendar();
                     int hora=calendario.get(Calendar.HOUR_OF_DAY);
                     System.out.println("LA HORA ACTUAL ES :"+hora);
-                    if(hora >= 0 || hora < 8){
-                        if(arti.getModificaServicio()){
-                         System.err.println("SI TIENE QUE MODIFICAR EL SERVICIO");  
-                         this.jCheckBox1.setEnabled(false);
-                        }else{
-                        System.err.println("NO DEBE MODIFICAR EL SERVICIO");
-                            this.jCheckBox1.setEnabled(true);
-                        }
-                        }
+                    
                 }
             }
             
@@ -555,7 +551,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             Double cantt=Double.parseDouble(this.jTextField2.getText());
             if(cantt < 1000){
-            if(arti.getModificaPrecio()){
+            if(arti.getModificaPrecio()==1){
                 this.jTextField4.requestFocus();
             }else{
                 if(arti.getPrecioServicio()>0){
@@ -679,7 +675,7 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         this.jList1.removeAll();
         listadoDeBusqueda.clear();
         cargarLista(listadoDeBusqueda);
-        cliT=new ClientesTango("999999");
+        cliT=new ClientesTango("1");
         this.jLabel6.setText(cliT.getRazonSocial());
         this.jTextField2.setText("");
         jTextField1.setText("");
@@ -739,15 +735,15 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
             }else{
                 servicio=0.00;
             }
-            if(arti.getModificaPrecio())servicio=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField4.getText()));
-            Double tota=arti.getPrecioUnitarioNeto() + servicio;
+            if(arti.getModificaPrecio()==1)servicio=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField4.getText()));
+            Double tota=servicio;
             //arti.setPrecioUnitarioNeto(tota);
             //arti.setPrecioServicio(servicio);
             Double cantt=Double.parseDouble(this.jTextField2.getText());
             Articulos articul=new Articulos();
                     articul.setCantidad(cantt);
                     articul.setCodigoAsignado(arti.getCodigoAsignado());
-                    articul.setPrecioServicio(servicio);
+                    //articul.setPrecioServicio(servicio);
                     articul.setCodigoDeBarra(arti.getCodigoDeBarra());
                     articul.setDescripcionArticulo(arti.getDescripcionArticulo());
                     articul.setNumeroId(arti.getNumeroId());

@@ -40,7 +40,7 @@ public class Articulos implements Facturar,Editables{
     private Double precioServicio=0.00;
     private Boolean confirmado;
     private Double recargo;
-    private Boolean modificaPrecio;
+    private Integer modificaPrecio;
     private static Hashtable listadoBarr=new Hashtable();
     private static Hashtable listadoNom=new Hashtable();
     private static Hashtable listadoCodigo=new Hashtable();
@@ -66,11 +66,11 @@ public class Articulos implements Facturar,Editables{
     
     
 
-    public Boolean getModificaPrecio() {
+    public Integer getModificaPrecio() {
         return modificaPrecio;
     }
 
-    public void setModificaPrecio(Boolean modificaPrecio) {
+    public void setModificaPrecio(Integer modificaPrecio) {
         this.modificaPrecio = modificaPrecio;
     }
     
@@ -265,7 +265,8 @@ public class Articulos implements Facturar,Editables{
                 articulo.setStockMinimo(rr.getDouble("MINIMO"));
                 articulo.setStockActual(rr.getDouble("stock"));
                 articulo.setPrecioServicio(rr.getDouble("SERVICIO"));
-                articulo.setModificaPrecio(rr.getBoolean("modificaPrecio"));
+                
+                articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
                 listadoBarr.put(articulo.getCodigoDeBarra(),articulo);
                 codA=articulo.getCodigoAsignado();
@@ -300,7 +301,7 @@ public class Articulos implements Facturar,Editables{
                 articulo.setStockMinimo(rr.getDouble("MINIMO"));
                 articulo.setStockActual(rr.getDouble("stock"));
                 articulo.setPrecioServicio(rr.getDouble("SERVICIO"));
-                articulo.setModificaPrecio(rr.getBoolean("modificaPrecio"));
+                articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
                 String nom=rr.getString("NOMBRE");
                 listadoNom.put(nom,articulo);
@@ -338,7 +339,7 @@ public class Articulos implements Facturar,Editables{
                 articulo.setStockMinimo(rr.getDouble("MINIMO"));
                 articulo.setStockActual(rr.getDouble("stock"));
                 articulo.setPrecioServicio(rr.getDouble("SERVICIO"));
-                articulo.setModificaPrecio(rr.getBoolean("modificaPrecio"));
+                articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
                 listadoBarr.put(articulo.getCodigoDeBarra(),articulo);
                listadoCodigo.put(articulo.getCodigoAsignado(),articulo);
@@ -364,7 +365,7 @@ public class Articulos implements Facturar,Editables{
                 articulo.setStockMinimo(rr.getDouble("MINIMO"));
                 articulo.setStockActual(rr.getDouble("stock"));
                 articulo.setPrecioServicio(rr.getDouble("SERVICIO"));
-                articulo.setModificaPrecio(rr.getBoolean("modificaPrecio"));
+                articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
                 String nom=rr.getString("NOMBRE");
                 listadoNom.put(nom,articulo);
@@ -390,7 +391,8 @@ public class Articulos implements Facturar,Editables{
             int pos=articulo.getDescripcionArticulo().indexOf(criterio);
             int mod=0;
             int serv=0;
-            if(articulo.getModificaPrecio())mod=1;
+            mod=articulo.getModificaPrecio();
+//if(articulo.getModificaPrecio())mod=1;
             if(articulo.getModificaServicio())serv=1;
             if(articulo.getDescripcionArticulo().equals(""))articulo.setDescripcionArticulo("--");
             sql="insert into articulos (id,nombre,barras,servicio,costo,precio,minimo,stock,equivalencia,modificaprecio,modificaservicio,recargo,inhabilitado,idrubro) values ("+articulo.getNumeroId()+",'"+articulo.getDescripcionArticulo()+"','"+articulo.getCodigoDeBarra()+"',"+articulo.getPrecioServicio()+","+articulo.getPrecioDeCosto()+","+articulo.getPrecioUnitarioNeto()+","+articulo.getStockMinimo()+","+articulo.getStockActual()+","+articulo.getEquivalencia()+","+mod+","+serv+","+articulo.getRecargo()+",0,0)";
@@ -531,7 +533,7 @@ public class Articulos implements Facturar,Editables{
         Articulos articulo=(Articulos)objeto;
         Boolean ch=false;
         //String sql="insert into articulos (NOMBRE='"+articulo.getDescripcionArticulo()+"',SERVICIO="+articulo.getPrecioServicio()+",COSTO="+articulo.getPrecioDeCosto()+",PRECIO="+articulo.getPrecioUnitarioNeto()+",MINIMO="+articulo.getStockMinimo()+",BARRAS ='"+articulo.getCodigoDeBarra()+"',modificaPrecio="+articulo.getModificaPrecio()+" where ID="+articulo.getNumeroId();
-        String sql="insert into articulos (NOMBRE,SERVICIO,COSTO,PRECIO,MINIMO,BARRAS,modificaPrecio,modificaServicio,INHABILITADO,IDRUBRO) values ('"+articulo.getDescripcionArticulo()+"',"+articulo.getPrecioServicio()+","+articulo.getPrecioDeCosto()+","+articulo.getPrecioUnitarioNeto()+","+articulo.getStockMinimo()+",'"+articulo.getCodigoDeBarra()+"',0,0,0,1)";
+        String sql="insert into articulos (NOMBRE,SERVICIO,COSTO,PRECIO,MINIMO,BARRAS,modificaPrecio,modificaServicio,INHABILITADO,IDRUBRO) values ('"+articulo.getDescripcionArticulo()+"',"+articulo.getPrecioServicio()+","+articulo.getPrecioDeCosto()+","+articulo.getPrecioUnitarioNeto()+","+articulo.getStockMinimo()+",'"+articulo.getCodigoDeBarra()+"',"+articulo.getModificaPrecio()+",0,0,1)";
         Transaccionable tra=new ConeccionLocal();
         ch=tra.guardarRegistro(sql);
         return ch;

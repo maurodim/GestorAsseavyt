@@ -68,7 +68,7 @@ public class Impresora {
                         int renglon=30;
                         int columna=150;
                         int columna1=40;
-                        int renglonImagen=20;
+                        int renglonImagen=30;
                         //String condicionDeVenta=null;
                         
                         switch (tipoComprobante){
@@ -90,7 +90,7 @@ public class Impresora {
                                     //renglon=20;
                                     //columna=90;
                                     if(a==1){
-                                    pagina.drawImage(imagen,columna1,renglonImagen,100,40, null);
+                                    pagina.drawImage(imagen,columna1,renglonImagen,90,40, null);
                                     //pagina.drawImage(imagen,columna1,renglon, null);
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
                                     renglon=renglon + 10;
@@ -126,13 +126,13 @@ public class Impresora {
                                     pagina.drawString(cuota.getPeriodo(),columna1 + 140,renglon);
                                     pagina.setFont(fuente);
                                     renglon=renglon - 139;
-                                    renglonImagen=renglonImagen - 139;
-                                    
+                                    //renglonImagen=renglonImagen - 149;
+                                    System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }else{
-                                        columna=columna +240;
-                                        columna1=columna1 + 240;
+                                        columna=columna +260;
+                                        columna1=columna1 + 260;
                                         
-                                        pagina.drawImage(imagen,columna1,renglonImagen,100,40, null);
+                                        pagina.drawImage(imagen,columna1,renglonImagen,90,40, null);
                                     //pagina.drawImage(imagen,columna1,renglon, null);
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
                                     renglon=renglon + 10;
@@ -170,9 +170,9 @@ public class Impresora {
                                     renglon=renglon + 30;
                                     renglonImagen=renglon - 10;
                                     a=0;
-                                    columna=columna -240;
-                                    columna1=columna1 - 240;
-                                       System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen);
+                                    columna=columna -260;
+                                    columna1=columna1 - 260;
+                                       System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }
                                 }
                                //pagina.drawString("Fecha :",470,87);

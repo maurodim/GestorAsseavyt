@@ -53,6 +53,7 @@ public class Inicio extends javax.swing.JFrame {
     private BufferedImage img;
     public static Boolean coneccionRemota=true;
     private static Actualiza actu=new Actualiza();
+    public static Integer actualizable=0;
 
     public void setNiv(Integer nive) {
         niv = nive;
@@ -513,6 +514,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
        // Actualiza actu=new Actualiza();
+        Inicio.actualizable=1;
         actu.start();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 

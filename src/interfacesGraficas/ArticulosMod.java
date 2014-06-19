@@ -232,7 +232,12 @@ public class ArticulosMod extends javax.swing.JInternalFrame {
         arti.setPrecioUnitarioNeto(cant);
         //cant=Numeros.ConvertirStringADouble(this.jTextField6.getText());
         //arti.setPrecioServicio(cant);
-        arti.setModificaPrecio(this.jCheckBox1.isSelected());
+        if(this.jCheckBox1.isSelected()){
+        arti.setModificaPrecio(1);
+        }else{
+            arti.setModificaPrecio(0);
+        }
+        System.out.println("ALTA "+arti.getModificaPrecio());
         //arti.setModificaServicio(this.jCheckBox2.isSelected());
         Editables edit=new Articulos();
         if(accion==2){
