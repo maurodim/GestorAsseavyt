@@ -6,10 +6,14 @@
 
 package interfacesGraficas;
 
+import Impresiones.Impresora;
 import interfaces.Busquedas;
 import interfaces.Generable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetos.ClientesTango;
 import objetos.Cuotas;
 import tablas.Personalizabla;
@@ -92,6 +96,11 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
         );
 
         jButton1.setText("Imprimir Recibos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -136,6 +145,15 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Impresora imp=new Impresora();
+        try {
+            imp.imprimir(listadoClientes,1);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmisionDeRecibos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

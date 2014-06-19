@@ -159,7 +159,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
                 //cli.setNumeroPedido(rs.getString(3));
                 //cli.setObservaciones(rs.getString(5));
                 System.out.println("CLIENTE "+cli.getRazonSocial() +"COMENTARIO "+cli.getCodigoCliente());
-                codigo=cli.getCodigoId()+"AG";
+                codigo=String.valueOf(cli.getCodigoId());
                 nombre=cli.getRazonSocial();
                 listadoClientes.put(codigo,cli);
                 listadoPorNom.put(nombre,cli);
@@ -586,7 +586,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
 
     @Override
     public Object cargarPorCodigoDeBarra(String codigoDeBarra) {
-        throw new UnsupportedOperationException("Not supported yet.");
+                 throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -596,7 +596,25 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
 
     @Override
     public Object cargarPorCodigoAsignado(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ClientesTango rs=null;
+            //Transaccionable tra=new Conecciones();
+            String cliente=String.valueOf(id);
+            Enumeration<ClientesTango> elementos=listadoClientes.elements();
+            while(elementos.hasMoreElements()){
+                rs=(ClientesTango)elementos.nextElement();
+                ClientesTango cli=new ClientesTango();
+                 int pos=rs.getRazonSocial().indexOf(cliente);
+                if(pos==-1){
+                    
+                }else{
+                cli=rs;
+                //cli.setNumeroPedido(rs.getString(3));
+                //cli.setObservaciones(rs.getString(5));
+                System.out.println("CLIENTE "+cli.getRazonSocial() +"COMENTARIO "+cli.getCodigoCliente());
+                
+                }
+            }
+            return rs;
     }
 
     @Override
@@ -655,8 +673,9 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
             try {
                 while(rs.next()){
                     ClientesTango cliente=new ClientesTango();
-                    cliente.setCodigoId(rs.getInt("numeroproveedor"));
-                    cliente.setRazonSocial(rs.getString("nombre"));
+                    cliente=(ClientesTango) this.cargarPorCodigoAsignado(rs.getInt("numeroproveedor"));
+                    //cliente.setCodigoId(rs.getInt("numeroproveedor"));
+                    //cliente.setRazonSocial(rs.getString("nombre"));
                     cliente.setIdCuota(rs.getInt("idcuota"));
                     cliente.setMontoCuota(rs.getDouble("monto"));
                     listado.add(cliente);
