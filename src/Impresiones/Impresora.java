@@ -5,6 +5,7 @@ package Impresiones;
  * and open the template in the editor.
  */
 
+import interfaces.Adeudable;
 import interfaces.Generable;
 import java.awt.Color;
 import java.awt.Font;
@@ -79,6 +80,7 @@ public class Impresora {
                                 Cuotas cuota=new Cuotas();
                                 Planes plan=new Planes();
                                 Generable gen=new Planes();
+                                Adeudable adeu=new ClientesTango();
                                 ClientesTango cliente=new ClientesTango();
                                 Image imagen=Toolkit.getDefaultToolkit().getImage("c://Gestion//imagen//aseavyt.jpg");
                                 Iterator il=listado.listIterator();
@@ -174,6 +176,7 @@ public class Impresora {
                                     columna1=columna1 - 260;
                                        System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }
+                                    adeu.PagarComprobante(cliente);
                                 }
                                //pagina.drawString("Fecha :",470,87);
                                //pagina.drawString("ES UNA PRUEBA ", 45,163);

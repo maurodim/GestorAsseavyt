@@ -59,22 +59,28 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de Clientes"));
 
         Generable genera=new Cuotas();
+        listadoClientes.clear();
         Cuotas cuota=new Cuotas();
         ClientesTango clientes=new ClientesTango();
-        Iterator il=clientes.listarCuotas().listIterator();
+        ArrayList list=new ArrayList();
+        list=clientes.listarCuotas();
+        System.out.println("cantidad "+list.size());
+        Iterator il=list.listIterator();
         modeloB.addColumn("Emite ?");
         modeloB.addColumn("razon social");
         modeloB.addColumn("periodo");
         Object[] fila=new Object[3];
         while(il.hasNext()){
-            clientes=(ClientesTango)il.next();
+            ClientesTango clientes1=new ClientesTango();
+            clientes1=(ClientesTango)il.next();
             fila[0]=false;
-            fila[1]=clientes.getRazonSocial();
-            System.out.println("id cuota "+clientes.getIdCuota());
-            cuota=(Cuotas)genera.Cargar(clientes.getIdCuota());
+            fila[1]=clientes1.getRazonSocial();
+            System.out.println("id cuota "+clientes1.getIdCuota());
+            cuota=(Cuotas)genera.Cargar(clientes1.getIdCuota());
             fila[2]=cuota.getPeriodo();
             modeloB.addRow(fila);
         }
+        listadoClientes=list;
         jTable1.setModel(modeloB);
         jScrollPane1.setViewportView(jTable1);
 
@@ -147,12 +153,28 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int cantidad=this.jTable1.getRowCount();
+        ArrayList seleccion=new ArrayList();
+        int posicion=0;
+        Boolean tilde=false;
+        for(int i=0;i < cantidad;i++){
+            tilde=(Boolean) this.jTable1.getValueAt(i, 0);
+            if(tilde){
+                ClientesTango clie=new ClientesTango();
+                clie=(ClientesTango)listadoClientes.get(i);
+                seleccion.add(clie);
+                System.out.println("seleccionado "+clie.getRazonSocial()+" num "+i+" id "+clie.getCodigoId()+" cant"+cantidad);
+            }
+        }
+        
         Impresora imp=new Impresora();
         try {
-            imp.imprimir(listadoClientes,1);
+            imp.imprimir(seleccion,1);
         } catch (SQLException ex) {
             Logger.getLogger(EmisionDeRecibos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

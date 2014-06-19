@@ -65,6 +65,16 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
         private static int signal=0;
         private Double montoCuota;
         private Integer idCuota;
+        private Integer idMovimientoCliente;
+
+    public Integer getIdMovimientoCliente() {
+        return idMovimientoCliente;
+    }
+
+    public void setIdMovimientoCliente(Integer idMovimientoCliente) {
+        this.idMovimientoCliente = idMovimientoCliente;
+    }
+        
 
     public Integer getIdCuota() {
         return idCuota;
@@ -435,7 +445,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
     }
     private static void numeroActualRecibo(){
         Transaccionable tra=new Conecciones();
-        String sql="select * from tipocomprobantes where numero=11";
+        String sql="select * from tipocomprobantes where numero=5";
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {
             while(rs.next()){
@@ -596,13 +606,14 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
 
     @Override
     public Object cargarPorCodigoAsignado(Integer id) {
-        ClientesTango rs=null;
+        ClientesTango rs=new ClientesTango();
+        ClientesTango cli=null;
             //Transaccionable tra=new Conecciones();
             String cliente=String.valueOf(id);
             Enumeration<ClientesTango> elementos=listadoClientes.elements();
             while(elementos.hasMoreElements()){
                 rs=(ClientesTango)elementos.nextElement();
-                ClientesTango cli=new ClientesTango();
+                cli=new ClientesTango();
                  int pos=rs.getRazonSocial().indexOf(cliente);
                 if(pos==-1){
                     
@@ -640,7 +651,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
        String fech=Numeros.ConvertirFecha(Inicio.fechaVal);
        Transaccionable tra=new Conecciones();
        Double montt=factProv.getMontoTotal() * -1;
-       String sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito) values ("+factProv.getCliente().getCodigoId()+","+montt+","+numeroRecibo+","+factProv.getUsuarioGenerador()+",11,"+factProv.getIdSucursal()+",0)";
+       String sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito) values ("+factProv.getCliente().getCodigoId()+","+montt+","+numeroRecibo+","+factProv.getUsuarioGenerador()+",5,"+factProv.getIdSucursal()+",0)";
        //String sql="update movimientosproveedores set pagado=1,numeroComprobante="+numeroRecibo+",idCaja="+Inicio.caja.getNumero()+",fechaPago='"+fech+"',idSucursal="+Inicio.sucursal.getNumero()+" where id="+factProv.getId();
        System.out.println("VEAMOS "+sql);
        tra.guardarRegistro(sql);
@@ -660,25 +671,35 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
        Iterator itL=listado.listIterator();
        while(itL.hasNext()){
            cliente=(ClientesTango)itL.next();
-           sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,pagado,idcaja,idCuota) values ("+cliente.getCodigoId()+","+cliente.getMontoCuota()+","+numeroRecibo+","+Inicio.usuario.getNumeroId()+",1,"+Inicio.sucursal+",0,0,0,"+cliente.getIdCuota()+")";
+           if(cliente.getCodigoId()==1){
+               
+           }else{
+           sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,pagado,idcaja,idCuota) values ("+cliente.getCodigoId()+","+cliente.getMontoCuota()+","+cliente.getIdMovimientoCliente()+","+Inicio.usuario.getNumeroId()+",1,"+Inicio.sucursal+",0,0,0,"+cliente.getIdCuota()+")";
            tra.guardarRegistro(sql);          
+           }
        }
        cargarMap();
     }
     public ArrayList listarCuotas(){
         ArrayList listado=new ArrayList();
-        String sql="select numeroproveedor,idcuota,(select listcli.razon_soci from listcli where listcli.codmmd=movimientosclientes.numeroproveedor)as nombre,monto from movimientosclientes where pagado=0 and tipocomprobante=1";
+        String sql="select numeroproveedor,numerocomprobante,idcuota,(select listcli.razon_soci from listcli where listcli.codmmd=movimientosclientes.numeroproveedor)as nombre,monto from movimientosclientes where pagado=0 and tipocomprobante=1";
         Transaccionable tra=new ConeccionLocal();
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
             try {
                 while(rs.next()){
-                    ClientesTango cliente=new ClientesTango();
-                    cliente=(ClientesTango) this.cargarPorCodigoAsignado(rs.getInt("numeroproveedor"));
+                    if(rs.getInt("numeroproveedor") > 1){
+                        
+                    String codigo=String.valueOf(rs.getInt("numeroproveedor"));
+                    ClientesTango cliente=new ClientesTango(codigo);
+                    //cliente=(ClientesTango) this.cargarPorCodigoAsignado(rs.getInt("numeroproveedor"));
                     //cliente.setCodigoId(rs.getInt("numeroproveedor"));
                     //cliente.setRazonSocial(rs.getString("nombre"));
                     cliente.setIdCuota(rs.getInt("idcuota"));
                     cliente.setMontoCuota(rs.getDouble("monto"));
+                    cliente.setIdMovimientoCliente(rs.getInt("numerocomprobante"));
+                    System.out.println("CLIENTE "+cliente.getRazonSocial()+" / "+cliente.getIdCuota()+" / "+cliente.getMontoCuota()+" / "+rs.getInt("numeroproveedor"));
                     listado.add(cliente);
+                    }
                 }
                 rs.close();
             } catch (SQLException ex) {
