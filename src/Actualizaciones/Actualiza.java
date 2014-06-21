@@ -46,7 +46,10 @@ public class Actualiza extends Thread{
         
             //carga la lista remota
             //Proveedores.cargarListadoProv1();
-        if(Inicio.actualizable==1){
+       // Articulos.RecargarMap();
+        //Proveedores.cargarListadoProv();
+        //ListasDePrecios.cargarMap();
+            if(Inicio.actualizable==1){
         Articulos.RecargarMap();
         Articulos.BackapearMap();
         Proveedores.BackapearProveedores();
