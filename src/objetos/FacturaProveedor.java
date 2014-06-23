@@ -156,7 +156,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
     
     private static void numeroActualRecibo(){
         Transaccionable tra=new ConeccionLocal();
-        String sql="select * from tipocomprobantes where numero=11";
+        String sql="select * from tipocomprobantes where numero=6";
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {
             while(rs.next()){
@@ -170,7 +170,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
     }
     private void GuardarNumeroRecibo(){
         Transaccionable tra=new ConeccionLocal();
-        String sql="update tipocomprobantes set numeroActivo="+numeroRecibo+" where numero=11";
+        String sql="update tipocomprobantes set numeroActivo="+numeroRecibo+" where numero=6";
         tra.guardarRegistro(sql);
     }
     private static void numeroActualFactura(){
@@ -372,7 +372,8 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
        numeroRecibo++;
        String fech=Numeros.ConvertirFecha(Inicio.fechaVal);
        Transaccionable tra=new ConeccionLocal();
-       String sql="insert into movimientosproveedores (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito) values ("+factProv.getNumeroProveedor()+","+factProv.getMontoFinal()+","+numeroRecibo+","+factProv.getIdUsuario()+",11,"+factProv.getIdSucursal()+",0)";
+       //String num=String.valueOf(numeroRecibo);
+       String sql="insert into movimientosproveedores (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,idcaja) values ("+factProv.getNumeroProveedor()+","+factProv.getMontoFinal()+","+numeroRecibo+","+factProv.getIdUsuario()+",11,"+factProv.getIdSucursal()+",0,"+Inicio.numeroCajaAdministradora+")";
        //String sql="update movimientosproveedores set pagado=1,numeroComprobante="+numeroRecibo+",idCaja="+Inicio.caja.getNumero()+",fechaPago='"+fech+"',idSucursal="+Inicio.sucursal.getNumero()+" where id="+factProv.getId();
        System.out.println("VEAMOS "+sql);
        tra.guardarRegistro(sql);

@@ -883,7 +883,7 @@ public class Cajas implements Cajeables{
                break;
            case 11:
                //pago a proveedores -- leo en movimientos de caja, devuelvo un objeto caja
-               sql="select *,(select proveedores.nombre from proveedores where proveedores.numero=movimientoscaja.idCliente)as nombreP from movimientoscaja where tipoComprobante="+tipoComprobante+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=11"; 
+               sql="select monto,fecha,observaciones,(select proveedores.nombre from proveedores where proveedores.numero=movimientoscaja.idCliente)as nombreP from movimientoscaja where tipoComprobante="+tipoComprobante+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=11"; 
                rs=tra.leerConjuntoDeRegistros(sql);
         try {
             while(rs.next()){
