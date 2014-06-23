@@ -19,7 +19,7 @@ import objetos.ListasDePrecios;
  * @author hernan
  */
 public class NuevoCliente extends javax.swing.JInternalFrame {
-
+    private ArrayList listadoL;
     /**
      * Creates new form NuevoCliente
      */
@@ -76,7 +76,7 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Lista de precios :");
 
-        ArrayList listadoL=new ArrayList();
+        listadoL=new ArrayList();
         Personalizable per=new ListasDePrecios();
         ListasDePrecios listaP=new ListasDePrecios();
         listadoL=per.listar();
@@ -85,6 +85,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
             listaP=(ListasDePrecios)ilL.next();
             jComboBox2.addItem(listaP.getDescripcionLista());
         }
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,6 +195,9 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
        cli.setCondicionIva(condicion);
        cli.setNumeroDeCuit(this.jTextField3.getText());
        cli.setTelefono(this.jTextField4.getText());
+       ListasDePrecios ls=new ListasDePrecios();
+       ls=(ListasDePrecios)listadoL.get(this.jComboBox2.getSelectedIndex());
+       cli.setCondicionDeVenta(ls.getId());
         try {
             cli.agregarNuevo(cli);
             this.dispose();
@@ -205,6 +213,11 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
        
        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        //int pos=this.jComboBox2.getSelectedIndex();
+        
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

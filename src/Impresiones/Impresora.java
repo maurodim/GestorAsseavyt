@@ -176,7 +176,7 @@ public class Impresora {
                                     columna1=columna1 - 260;
                                        System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }
-                                    adeu.PagarComprobante(cliente);
+                                    //adeu.PagarComprobante(cliente);
                                 }
                                //pagina.drawString("Fecha :",470,87);
                                //pagina.drawString("ES UNA PRUEBA ", 45,163);

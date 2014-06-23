@@ -180,8 +180,11 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="ArrayList listadoL=new ArrayList();&#xa;Personalizable per=new ListasDePrecios();&#xa;ListasDePrecios listaP=new ListasDePrecios();&#xa;listadoL=per.listar();&#xa;Iterator ilL=listadoL.listIterator();&#xa;while(ilL.hasNext()){&#xa;    listaP=(ListasDePrecios)ilL.next();&#xa;    jComboBox2.addItem(listaP.getDescripcionLista());&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="listadoL=new ArrayList();&#xa;Personalizable per=new ListasDePrecios();&#xa;ListasDePrecios listaP=new ListasDePrecios();&#xa;listadoL=per.listar();&#xa;Iterator ilL=listadoL.listIterator();&#xa;while(ilL.hasNext()){&#xa;    listaP=(ListasDePrecios)ilL.next();&#xa;    jComboBox2.addItem(listaP.getDescripcionLista());&#xa;}"/>
           </AuxValues>
         </Component>
       </SubComponents>

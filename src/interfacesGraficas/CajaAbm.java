@@ -446,7 +446,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                             listadoC.clear();
                operacionSelect=0;
                this.jPanel2.setVisible(false);
-                //AgregarRenglonTabla();
+                AgregarRenglonTabla();
                break;
            case 12:
                monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField1.getText()));

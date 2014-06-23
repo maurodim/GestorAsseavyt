@@ -915,7 +915,8 @@ public class Cajas implements Cajeables{
                break;
            case 13:
                //cobro cta cte clientes -- leo en movimientos caja, devuelvo un obejto caja
-               sql="select *,(select listcli.RAZON_SOCI from listcli where listclic.codMMd=movimientoscaja.idCliente)as nombreP from movimientoscaja where tipoComprobante="+tipoComprobante+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
+               sql="select movimientoscaja.fecha,movimientoscaja.monto,(select listcli.RAZON_SOCI from listcli where listclic.codMMd=movimientoscaja.idCliente)as nombreP from movimientoscaja where tipoComprobante="+tipoComprobante+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
+               System.out.println(sql);
                rs=tra.leerConjuntoDeRegistros(sql);
         try {
             while(rs.next()){

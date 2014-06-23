@@ -444,7 +444,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
         }
     }
     private static void numeroActualRecibo(){
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         String sql="select * from tipocomprobantes where numero=5";
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {
@@ -458,7 +458,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
         }
     }
     private void GuardarNumeroRecibo(){
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         String sql="update tipocomprobantes set numeroActivo="+numeroRecibo+" where numero=11";
         tra.guardarRegistro(sql);
     }
@@ -552,7 +552,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
         ClientesTango cli=(ClientesTango)cliente;
         Boolean resultado=false;
         Transaccionable tra=new Conecciones();
-        String sql="insert into listcli (COD_CLIENT,RAZON_SOCI,DOMICILIO,LOCALIDAD,TELEFONO_1,TIPO_IVA,IDENTIFTRI,COND_VTA,NRO_LISTA,empresa) values ('"+cli.getCodigoCliente()+"','"+cli.getRazonSocial()+"','"+cli.getDireccion()+"','SANTA FE','"+cli.getTelefono()+"',"+cli.getCondicionIva()+",'"+cli.getNumeroDeCuit()+"',1,1,'"+cli.getEmpresa()+"')";
+        String sql="insert into listcli (COD_CLIENT,RAZON_SOCI,DOMICILIO,LOCALIDAD,TELEFONO_1,TIPO_IVA,IDENTIFTRI,COND_VTA,NRO_LISTA,empresa) values ('"+cli.getCodigoCliente()+"','"+cli.getRazonSocial()+"','"+cli.getDireccion()+"','SANTA FE','"+cli.getTelefono()+"',"+cli.getCondicionIva()+",'"+cli.getNumeroDeCuit()+"',1,"+cli.getCondicionDeVenta()+",'"+cli.getEmpresa()+"')";
         resultado=tra.guardarRegistro(sql);
         return resultado;
     }
@@ -649,15 +649,15 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
        numeroActualRecibo();
        numeroRecibo++;
        String fech=Numeros.ConvertirFecha(Inicio.fechaVal);
-       Transaccionable tra=new Conecciones();
+       Transaccionable tra=new ConeccionLocal();
        Double montt=factProv.getMontoTotal() * -1;
-       String sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito) values ("+factProv.getCliente().getCodigoId()+","+montt+","+numeroRecibo+","+factProv.getUsuarioGenerador()+",5,"+factProv.getIdSucursal()+",0)";
+       String sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,idcaja) values ("+factProv.getCliente().getCodigoId()+","+montt+","+numeroRecibo+","+factProv.getUsuarioGenerador()+",5,"+factProv.getIdSucursal()+",0,"+Inicio.numeroCajaAdministradora+")";
        //String sql="update movimientosproveedores set pagado=1,numeroComprobante="+numeroRecibo+",idCaja="+Inicio.caja.getNumero()+",fechaPago='"+fech+"',idSucursal="+Inicio.sucursal.getNumero()+" where id="+factProv.getId();
-       System.out.println("VEAMOS "+sql);
+       //System.out.println("VEAMOS "+sql);
        tra.guardarRegistro(sql);
        //String ttx="PAGO A PROVEEDOR "+factProv.getNombreProveedor();
        Double monto=factProv.getMontoTotal();
-       sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado) value ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",13,"+Inicio.caja.getNumero()+","+factProv.getCliente().getCodigoId()+",1,1)";
+       sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",13,"+Inicio.caja.getNumero()+","+factProv.getCliente().getCodigoId()+",1,1)";
        tra.guardarRegistro(sql);
        GuardarNumeroRecibo();
        return factProv;
