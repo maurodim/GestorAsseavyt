@@ -433,6 +433,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                this.jPanel2.setVisible(false);
                 //AgregarRenglonTabla();
                 //ModificarLabels();
+               break;
            case 13:
                Comprobantes comprobantes=new Comprobantes();
                Adeudable adeu=new ClientesTango();

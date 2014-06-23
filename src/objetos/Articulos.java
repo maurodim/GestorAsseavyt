@@ -4,10 +4,10 @@
  */
 package objetos;
 
-import interfacesGraficas.Inicio;
 import interfaces.Editables;
 import interfaces.Facturar;
 import interfaces.Transaccionable;
+import interfacesGraficas.Inicio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,9 +42,9 @@ public class Articulos implements Facturar,Editables{
     private Boolean confirmado;
     private Double recargo;
     private Integer modificaPrecio;
-    private static Hashtable listadoBarr=new Hashtable();
-    private static Hashtable listadoNom=new Hashtable();
-    private static Hashtable listadoCodigo=new Hashtable();
+    private static ConcurrentHashMap listadoBarr=new ConcurrentHashMap();
+    private static ConcurrentHashMap listadoNom=new ConcurrentHashMap();
+    private static ConcurrentHashMap listadoCodigo=new ConcurrentHashMap();
     private Double diferenciaRemitida;
     private Boolean modificaServicio;
 
@@ -268,9 +269,9 @@ public class Articulos implements Facturar,Editables{
                 
                 articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
-                listadoBarr.put(articulo.getCodigoDeBarra(),articulo);
+                listadoBarr.putIfAbsent(articulo.getCodigoDeBarra(),articulo);
                 codA=articulo.getCodigoAsignado();
-                listadoCodigo.put(codA,articulo);
+                listadoCodigo.putIfAbsent(codA,articulo);
                 
                 //resultado.add(articulo);
             }
@@ -304,7 +305,7 @@ public class Articulos implements Facturar,Editables{
                 articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
                 String nom=rr.getString("NOMBRE");
-                listadoNom.put(nom,articulo);
+                listadoNom.putIfAbsent(nom,articulo);
                 //resultado.add(articulo);
             }
             rr.close();
@@ -341,8 +342,8 @@ public class Articulos implements Facturar,Editables{
                 articulo.setPrecioServicio(rr.getDouble("SERVICIO"));
                 articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
-                listadoBarr.put(articulo.getCodigoDeBarra(),articulo);
-               listadoCodigo.put(articulo.getCodigoAsignado(),articulo);
+                listadoBarr.putIfAbsent(articulo.getCodigoDeBarra(),articulo);
+               listadoCodigo.putIfAbsent(articulo.getCodigoAsignado(),articulo);
                 //resultado.add(articulo);
             }
                   } catch (SQLException ex) {
@@ -368,7 +369,7 @@ public class Articulos implements Facturar,Editables{
                 articulo.setModificaPrecio(rr.getInt("modificaPrecio"));
                 articulo.setModificaServicio(rr.getBoolean("modificaServicio"));
                 String nom=rr.getString("NOMBRE");
-                listadoNom.put(nom,articulo);
+                listadoNom.putIfAbsent(nom,articulo);
                 //resultado.add(articulo);
             }
             rr.close();

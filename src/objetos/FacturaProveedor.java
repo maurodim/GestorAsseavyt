@@ -368,7 +368,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
        tra.guardarRegistro(sql);
        String ttx="PAGO A PROVEEDOR "+factProv.getNombreProveedor();
        Double monto=factProv.getMontoFinal();
-       sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) value ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",11,"+Inicio.caja.getNumero()+","+factProv.getNumeroProveedor()+",2,1,'"+ttx+"')";
+       sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",11,"+Inicio.caja.getNumero()+","+factProv.getNumeroProveedor()+",2,1,'"+ttx+"')";
        tra.guardarRegistro(sql);
        GuardarNumeroRecibo();
        return factProv;

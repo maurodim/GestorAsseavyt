@@ -33,17 +33,18 @@ import javax.swing.JOptionPane;
  */
 public class ConeccionLocal implements Transaccionable{
     private Connection con;
-    private Statement st;
+    private PreparedStatement st;
     private String driver1="org.apache.derby.jdbc.EmbeddedDriver";
+    private Connection dbConnection;
 
     public ConeccionLocal() {
-              Connection dbConnection = null;
+              dbConnection = null;
  //String strUrl = "jdbc:derby://localhost:1527/respaldo;create=true";
                String strUrl = "jdbc:derby:C:\\Gestion\\DBAseavyt\\gestion.db";
             try {
                 Class.forName(driver1).newInstance();
                 dbConnection = DriverManager.getConnection (strUrl);
-                st=dbConnection.createStatement();
+                //st=dbConnection.createStatement();
             } catch (InstantiationException ex) {
             Logger.getLogger(ConeccionLocal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
@@ -61,8 +62,9 @@ public class ConeccionLocal implements Transaccionable{
     public Boolean guardarRegistro(String sql) {
         Boolean coneccion=true;
         try {
-            System.out.println("SENTENCIA "+sql);
-            st.executeUpdate(sql);
+            st=dbConnection.prepareStatement(sql);
+            //System.out.println("SENTENCIA "+sql);
+            st.executeUpdate();
             //this.st.executeQuery(sql);
             
         } catch (SQLException ex) {
@@ -113,8 +115,10 @@ public class ConeccionLocal implements Transaccionable{
     @Override
     public ResultSet leerConjuntoDeRegistros(String sql) {
         ResultSet rs=null;
+        
         try {
-            st.execute(sql);
+            st=dbConnection.prepareStatement(sql);
+            st.execute();
             rs=st.getResultSet();
         } catch (SQLException ex) {
             System.out.println("NO SE CONECTA, ACA CARGA LOS OBJETOS");
