@@ -196,8 +196,10 @@ public class NuevoCliente extends javax.swing.JInternalFrame {
        cli.setNumeroDeCuit(this.jTextField3.getText());
        cli.setTelefono(this.jTextField4.getText());
        ListasDePrecios ls=new ListasDePrecios();
+       int post=this.jComboBox2.getSelectedIndex();
        ls=(ListasDePrecios)listadoL.get(this.jComboBox2.getSelectedIndex());
-       cli.setCondicionDeVenta(ls.getId());
+       //System.out.println("LISTA ELEGIDA "+ls.getDesccripcion()+" numero "+ls.getNumeroLista());
+       cli.setCondicionDeVenta(ls.getNumeroLista());
         try {
             cli.agregarNuevo(cli);
             this.dispose();

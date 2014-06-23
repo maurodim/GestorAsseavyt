@@ -427,6 +427,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
             Double montot=Double.parseDouble(this.jTextField1.getText());
             montot=montot * -1;
             fact.setMontoFinal(montot);
+            fact.setObservaciones(this.jTextField2.getText());
                ade.PagarComprobante(fact);
                listadoP.clear();
                operacionSelect=0;
@@ -502,8 +503,9 @@ public class CajaAbm extends javax.swing.JInternalFrame {
         this.jLabel2.setText("Seleccione Proveedor");
         this.jLabel3.setText("Monto Adeudado");
         this.jButton2.setText("PAGAR");
-        this.jLabel4.setVisible(false);
-        this.jTextField2.setVisible(false);
+        this.jLabel4.setText("OBSERVACIONES");
+        this.jLabel4.setVisible(true);
+        this.jTextField2.setVisible(true);
     }
     private void ListarClientes(){
       ClientesTango fact=new ClientesTango();

@@ -406,12 +406,10 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
     }
     public void agregarNuevo(ClientesTango cli) throws SQLException{
         Transaccionable tra=new ConeccionLocal();
-        String sql="insert into listcli (RAZON_SOCI,DOMICILIO,TELEFONO_1,TIPO_IVA,NUMERODECUIT,COND_VTA,LISTADEPRECIO,empresa) values ('"+cli.getRazonSocial()+"','"+cli.getDireccion()+"','"+cli.getTelefono()+"',1,'"+cli.getNumeroDeCuit()+"',1,1,'"+cli.getEmpresa()+"')";
-        if(tra.guardarRegistro(sql)){
+        String sql="insert into listcli (RAZON_SOCI,DOMICILIO,TELEFONO_1,TIPO_IVA,NUMERODECUIT,COND_VTA,LISTADEPRECIO,empresa) values ('"+cli.getRazonSocial()+"','"+cli.getDireccion()+"','"+cli.getTelefono()+"',1,'"+cli.getNumeroDeCuit()+"',1,"+cli.getCondicionDeVenta()+",'"+cli.getEmpresa()+"')";
+        System.out.println(sql);
+        tra.guardarRegistro(sql);
             cargarMap();
-        }else{
-            
-        }
         
     }
     public ArrayList listarPorVehiculo(int numeroVehiculo,String fecha) throws SQLException{

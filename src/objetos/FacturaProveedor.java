@@ -39,6 +39,16 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
     private Integer idSucursal;
     private static Integer numeroRecibo;
     private static Integer numeroFacturaP;
+    private String observaciones;
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+    
 
     public Integer getIdSucursal() {
         return idSucursal;
@@ -145,7 +155,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
 
     
     private static void numeroActualRecibo(){
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         String sql="select * from tipocomprobantes where numero=11";
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {
@@ -159,12 +169,12 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
         }
     }
     private void GuardarNumeroRecibo(){
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         String sql="update tipocomprobantes set numeroActivo="+numeroRecibo+" where numero=11";
         tra.guardarRegistro(sql);
     }
     private static void numeroActualFactura(){
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         String sql="select * from tipocomprobantes where numero=6";
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {
@@ -178,7 +188,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
         }
     }
     private void GuardarNumeroFactura(){
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         String sql="update tipocomprobantes set numeroActivo="+numeroFacturaP+" where numero=6";
         tra.guardarRegistro(sql);
     }
@@ -188,7 +198,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
         FacturaProveedor fact=(FacturaProveedor)objeto;
         Integer idFactura=0;
         String sql="insert into movimientosproveedores (numeroProveedor,monto,numeroComprobante,idRemito,idUsuario,tipoComprobante,idSucursal) values ("+fact.getNumeroProveedor()+","+fact.getMontoFinal()+",'"+fact.getNumeroFactura()+"',"+fact.getIdRemito()+","+fact.getIdUsuario()+",5,"+fact.getIdSucursal()+")";
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         if(tra.guardarRegistro(sql)){
             sql="select LAST_INSERT_ID()";
             ResultSet rs=tra.leerConjuntoDeRegistros(sql);
@@ -248,7 +258,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
         Double monto=fact.getMontoFinal() * -1;
         //insert into movimientoscaja(numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,pagado,tipoCliente,idCliente) values (1,1,(select tipocomprobantes.numeroActivo + 1 from tipocomprobantes where numero=11) ,6,1.00,2,1,1,2,1)
         String sql="insert into movimientoscaja(numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,pagado,tipoCliente,idCliente) values ("+fact.getIdUsuario()+","+fact.getIdSucursal()+",(select tipocomprobantes.numeroActivo + 1 from tipocomprobantes where numero=11),6,"+monto+",2,"+fact.getIdCaja()+","+fact.getPagada()+",2,"+fact.getNumeroProveedor()+")";
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         if(tra.guardarRegistro(sql))System.out.println(sql);
         sql="update movimientosproveedores set pagado="+fact.getPagada()+",fechaPago ='"+fact.getFecha()+"' where id="+fact.getId();
         if(tra.guardarRegistro(sql))System.out.println(sql);       
@@ -325,7 +335,7 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
         Personalizable per=new Proveedores();
         Proveedores proveedor=new Proveedores();
         String sql="select * from movimientosproveedores where pagado=0";
-        Transaccionable tra=new Conecciones();
+        Transaccionable tra=new ConeccionLocal();
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
         try {
             while(rs.next()){
@@ -361,14 +371,14 @@ public class FacturaProveedor implements Comprobable,Facturar,Adeudable{
        numeroActualRecibo();
        numeroRecibo++;
        String fech=Numeros.ConvertirFecha(Inicio.fechaVal);
-       Transaccionable tra=new Conecciones();
+       Transaccionable tra=new ConeccionLocal();
        String sql="insert into movimientosproveedores (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito) values ("+factProv.getNumeroProveedor()+","+factProv.getMontoFinal()+","+numeroRecibo+","+factProv.getIdUsuario()+",11,"+factProv.getIdSucursal()+",0)";
        //String sql="update movimientosproveedores set pagado=1,numeroComprobante="+numeroRecibo+",idCaja="+Inicio.caja.getNumero()+",fechaPago='"+fech+"',idSucursal="+Inicio.sucursal.getNumero()+" where id="+factProv.getId();
        System.out.println("VEAMOS "+sql);
        tra.guardarRegistro(sql);
-       String ttx="PAGO A PROVEEDOR "+factProv.getNombreProveedor();
+       //String ttx="PAGO A PROVEEDOR "+factProv.getNombreProveedor();
        Double monto=factProv.getMontoFinal();
-       sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",11,"+Inicio.caja.getNumero()+","+factProv.getNumeroProveedor()+",2,1,'"+ttx+"')";
+       sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",11,"+Inicio.caja.getNumero()+","+factProv.getNumeroProveedor()+",2,1,'"+factProv.getObservaciones()+"')";
        tra.guardarRegistro(sql);
        GuardarNumeroRecibo();
        return factProv;

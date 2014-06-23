@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import objetos.Articulos;
@@ -36,7 +37,17 @@ public class Proveedores implements Personalizable{
     private int condicionIngresosBrutos;
     private String numeroIngresosBrutos;
     private Double saldo=0.00;
-    private static Hashtable listadoProv=new Hashtable();
+    private static ConcurrentHashMap listadoProv=new ConcurrentHashMap();
+    private Integer idRubro;
+
+    public Integer getIdRubro() {
+        return idRubro;
+    }
+
+    public void setIdRubro(Integer idRubro) {
+        this.idRubro = idRubro;
+    }
+    
 
     public Double getSaldo() {
         return saldo;
@@ -155,13 +166,14 @@ public class Proveedores implements Personalizable{
                 prov.setMail(rr.getString("mail"));
                 prov.setTelefono(rr.getString("TELEFONO"));
                 prov.setSaldo(rr.getDouble("saldo"));
+                prov.setIdRubro(rr.getInt("idrubro"));
               //  if(Inicio.coneccionRemota)prov.setSaldo(rr.getDouble("saldo"));
                 //prov.setCondicionDeIva(rr.getInt("condicionIva"));
                 //prov.setNumeroDeCuit(rr.getString("numeroCuit"));
                 //prov.setCondicionIngresosBrutos(rr.getInt("condicionIb"));
                 //prov.setNumeroIngresosBrutos(rr.getString("numeroIb"));
                 System.err.println("PROV "+prov.getNombre());
-                listadoProv.put(prov.getNumero(),prov);
+                listadoProv.putIfAbsent(prov.getNumero(),prov);
             }
             rr.close();
             //if(Inicio.coneccionRemota)BackapearProveedores();
@@ -197,7 +209,7 @@ public class Proveedores implements Personalizable{
                 //prov.setCondicionIngresosBrutos(rr.getInt("condicionIb"));
                 //prov.setNumeroIngresosBrutos(rr.getString("numeroIb"));
                 System.err.println("PROV "+prov.getNombre());
-                listadoProv.put(prov.getNumero(),prov);
+                listadoProv.putIfAbsent(prov.getNumero(),prov);
             }
             rr.close();
             //if(Inicio.coneccionRemota)BackapearProveedores();
@@ -229,7 +241,7 @@ public class Proveedores implements Personalizable{
     public Boolean agregar(Object objeto) {
        Proveedores prov=(Proveedores)objeto;
        Boolean veri=false;
-       String sql="insert into proveedores (NOMBRE,DOMICILIO,LOCALIDAD,TELEFONO,mail) values ('"+prov.getNombre()+"','"+prov.getDireccion()+"','"+prov.getLocalidad()+"','"+prov.getTelefono()+"','"+prov.getMail()+"')";
+       String sql="insert into proveedores (NOMBRE,DOMICILIO,LOCALIDAD,TELEFONO,mail,idrubro) values ('"+prov.getNombre()+"','"+prov.getDireccion()+"','"+prov.getLocalidad()+"','"+prov.getTelefono()+"','"+prov.getMail()+"',"+prov.getIdRubro()+")";
        Transaccionable tra=new ConeccionLocal();
        if(tra.guardarRegistro(sql)){
           cargarListadoProv();
@@ -272,7 +284,7 @@ public class Proveedores implements Personalizable{
         Proveedores prov=new Proveedores();
         try {
             String sql="select * from proveedores where numero="+id+" and INHABILITADO=0";
-            Transaccionable tra=new Conecciones();
+            Transaccionable tra=new ConeccionLocal();
             ResultSet rr=tra.leerConjuntoDeRegistros(sql);
             while(rr.next()){
                 prov.setNumero(rr.getInt("ID"));
@@ -281,6 +293,7 @@ public class Proveedores implements Personalizable{
                 prov.setLocalidad(rr.getString("LOCALIDAD"));
                 prov.setMail(rr.getString("mail"));
                 prov.setTelefono(rr.getString("TELEFONO"));
+                prov.setIdRubro(rr.getInt("idrubro"));
                 //prov.setCondicionDeIva(rr.getInt("condicionIva"));
                 //prov.setNumeroDeCuit(rr.getString("numeroCuit"));
                 //prov.setCondicionIngresosBrutos(rr.getInt("condicionIb"));
@@ -299,7 +312,7 @@ public class Proveedores implements Personalizable{
         Proveedores prov=new Proveedores();
         try {
             String sql="select * from proveedores where nombre like '%"+nombre+"%' order by nombre";
-            Transaccionable tra=new Conecciones();
+            Transaccionable tra=new ConeccionLocal();
             ResultSet rr=tra.leerConjuntoDeRegistros(sql);
             while(rr.next()){
                 prov.setNumero(rr.getInt("numero"));
@@ -308,6 +321,7 @@ public class Proveedores implements Personalizable{
                 prov.setLocalidad(rr.getString("LOCALIDAD"));
                 prov.setMail(rr.getString("mail"));
                 prov.setTelefono(rr.getString("TELEFONO"));
+                prov.setIdRubro(rr.getInt("idrubro"));
                 /*
                 prov.setCondicionDeIva(rr.getInt("condicionIva"));
                 prov.setNumeroDeCuit(rr.getString("numeroCuit"));
@@ -337,6 +351,7 @@ public class Proveedores implements Personalizable{
                 prov.setLocalidad(rr.getString("LOCALIDAD"));
                 prov.setMail(rr.getString("mail"));
                 prov.setTelefono(rr.getString("TELEFONO"));
+                prov.setIdRubro(rr.getInt("idrubro"));
                 /*
                 prov.setCondicionDeIva(rr.getInt("condicionIva"));
                 prov.setNumeroDeCuit(rr.getString("numeroCuit"));
@@ -390,6 +405,7 @@ public class Proveedores implements Personalizable{
                 prov.setLocalidad(rr.getString("LOCALIDAD"));
                 prov.setMail(rr.getString("mail"));
                 prov.setTelefono(rr.getString("TELEFONO"));
+                prov.setIdRubro(rr.getInt("idrubro"));
                 /*
                 prov.setCondicionDeIva(rr.getInt("condicionIva"));
                 prov.setNumeroDeCuit(rr.getString("numeroCuit"));
@@ -421,6 +437,7 @@ public class Proveedores implements Personalizable{
                 prov.setLocalidad(rr.getString("LOCALIDAD"));
                 prov.setMail(rr.getString("mail"));
                 prov.setTelefono(rr.getString("TELEFONO"));
+                prov.setIdRubro(rr.getInt("idrubro"));
                 /*
                 prov.setCondicionDeIva(rr.getInt("condicionIva"));
                 prov.setNumeroDeCuit(rr.getString("numeroCuit"));

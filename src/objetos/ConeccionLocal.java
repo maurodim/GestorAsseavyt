@@ -163,7 +163,7 @@ public class ConeccionLocal implements Transaccionable{
                      PreparedStatement pstm6=dbConnection.prepareStatement(sql);
                      pstm6.execute();
                      pstm6.close();
-                     sql="CREATE TABLE APP.proveedores (numero integer generated always as identity (start with 1,increment by 1),nombre  varchar(19) default NULL,DOMICILIO  varchar(100) default NULL,LOCALIDAD  varchar(8) default NULL,TELEFONO  varchar(10) default NULL,INHABILITADO  INTEGER default 0,mail  varchar(200) not null,saldo double)";
+                     sql="CREATE TABLE APP.proveedores (numero integer generated always as identity (start with 1,increment by 1),nombre  varchar(19) default NULL,DOMICILIO  varchar(100) default NULL,LOCALIDAD  varchar(8) default NULL,TELEFONO  varchar(10) default NULL,INHABILITADO  INTEGER default 0,mail  varchar(200) not null,saldo double,idrubro Integer default 1)";
                      PreparedStatement pstm7=dbConnection.prepareStatement(sql);
                      pstm7.execute();
                      pstm7.close();
@@ -243,6 +243,9 @@ public class ConeccionLocal implements Transaccionable{
                     pstm25=dbConnection.prepareStatement(sql);
                     pstm25.execute();
                     sql="create table app.cuotas (id integer generated always as identity (start with 1,increment by 1),vencimiento1 date,vencimiento2 date,periodo varchar(10))";
+                    pstm25=dbConnection.prepareStatement(sql);
+                    pstm25.execute();
+                    sql="create table app.rubros(id integer generated always as identity (start with 1, increment by 1),descripcion varchar(50))";
                     pstm25=dbConnection.prepareStatement(sql);
                     pstm25.execute();
                     pstm25.close();

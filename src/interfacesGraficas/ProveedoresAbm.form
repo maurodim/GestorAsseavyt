@@ -49,6 +49,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jLabel6" max="32767" attributes="0"/>
                       <Component id="jLabel5" max="32767" attributes="0"/>
                       <Component id="jLabel4" max="32767" attributes="0"/>
                       <Component id="jLabel3" max="32767" attributes="0"/>
@@ -63,6 +64,7 @@
                       <Component id="jTextField3" max="32767" attributes="0"/>
                       <Component id="jTextField4" max="32767" attributes="0"/>
                       <Component id="jTextField5" pref="216" max="32767" attributes="0"/>
+                      <Component id="jComboBox1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="192" max="32767" attributes="0"/>
               </Group>
@@ -97,8 +99,13 @@
                       <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="234" max="32767" attributes="0"/>
+                  <EmptySpace pref="167" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -146,6 +153,21 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Rubro"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox1">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Rubros rubro=new Rubros();&#xa;Iterator it=null;&#xa;ArrayList listado=new ArrayList();&#xa;Generable gen=new Rubros();&#xa;listado=gen.Listar();&#xa;it=listado.listIterator();&#xa;while(it.hasNext()){&#xa;    rubro=(Rubros)it.next();&#xa;    jComboBox1.addItem(rubro.getDescripcion());&#xa;}"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
