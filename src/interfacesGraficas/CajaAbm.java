@@ -444,6 +444,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                comprobantes.setMontoTotal(Double.parseDouble(this.jTextField1.getText()));
                comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
                adeu.PagarComprobante(comprobantes);
+               
                             listadoC.clear();
                operacionSelect=0;
                this.jPanel2.setVisible(false);

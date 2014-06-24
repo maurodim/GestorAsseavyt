@@ -133,7 +133,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
             //}else{
              
                 tra=new ConeccionLocal();
-                sql="select codMMd,listcli.COD_CLIENT,listcli.RAZON_SOCI,listcli.DOMICILIO,listcli.COND_VTA,(listcli.LISTADEPRECIO)as NRO_LISTA,(select coeficienteslistas.montocuota from coeficienteslistas where coeficienteslistas.id=listcli.listadeprecio)as montocuota,(listcli.NUMERODECUIT)as IDENTIFTRI,listcli.empresa,listcli.TELEFONO_1,listcli.coeficiente,(listcli.CUPODECREDITO) AS CUPO_CREDI,(select sum(movimientosclientes.monto) from movimientosclientes where movimientosclientes.numeroproveedor=listcli.codmmd)as saldo,listcli.TIPO_IVA  from listcli";
+                sql="select codMMd,listcli.COD_CLIENT,listcli.localidad,listcli.RAZON_SOCI,listcli.DOMICILIO,listcli.COND_VTA,(listcli.LISTADEPRECIO)as NRO_LISTA,(select coeficienteslistas.montocuota from coeficienteslistas where coeficienteslistas.id=listcli.listadeprecio)as montocuota,(listcli.NUMERODECUIT)as IDENTIFTRI,listcli.empresa,listcli.TELEFONO_1,listcli.coeficiente,(listcli.CUPODECREDITO) AS CUPO_CREDI,(select sum(movimientosclientes.monto) from movimientosclientes where movimientosclientes.numeroproveedor=listcli.codmmd)as saldo,listcli.TIPO_IVA  from listcli";
             //}
             //sql="select *,(select coeficienteslistas.coeficiente from coeficienteslistas where coeficienteslistas.id=listcli.NRO_LISTA)as coeficiente,(select sum(movimientosclientes.monto) from movimientosclientes where pagado=0 and movimientosclientes.numeroProveedor=listcli.codMMd)as saldo from listcli";
             System.out.println("CLIENTES "+sql);
@@ -152,6 +152,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
                 cli.setDireccion(rs.getString("DOMICILIO"));
                 cli.setCondicionDeVenta(rs.getInt("COND_VTA"));
                 cli.setListaDePrecios(rs.getInt("NRO_LISTA"));
+                cli.setLocalidad(rs.getString("localidad"));
                 //Double descuento=Double.parseDouble(rs.getString("PORC_DESC"));
                 
                 //cli.setDescuento(descuento);
@@ -406,7 +407,8 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
     }
     public void agregarNuevo(ClientesTango cli) throws SQLException{
         Transaccionable tra=new ConeccionLocal();
-        String sql="insert into listcli (RAZON_SOCI,DOMICILIO,TELEFONO_1,TIPO_IVA,NUMERODECUIT,COND_VTA,LISTADEPRECIO,empresa) values ('"+cli.getRazonSocial()+"','"+cli.getDireccion()+"','"+cli.getTelefono()+"',1,'"+cli.getNumeroDeCuit()+"',1,"+cli.getCondicionDeVenta()+",'"+cli.getEmpresa()+"')";
+        //int iva=Integer.parseInt(cli.getCondicionIva());
+        String sql="insert into listcli (RAZON_SOCI,DOMICILIO,TELEFONO_1,TIPO_IVA,NUMERODECUIT,COND_VTA,LISTADEPRECIO,empresa,localidad) values ('"+cli.getRazonSocial()+"','"+cli.getDireccion()+"','"+cli.getTelefono()+"','"+cli.getCondicionIva()+"','"+cli.getNumeroDeCuit()+"',1,"+cli.getCondicionDeVenta()+",'"+cli.getEmpresa()+"','"+cli.getLocalidad()+"')";
         System.out.println(sql);
         tra.guardarRegistro(sql);
             cargarMap();

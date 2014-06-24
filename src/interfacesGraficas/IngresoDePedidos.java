@@ -5,8 +5,7 @@
 package interfacesGraficas;
 
 import Conversores.Numeros;
-import objetos.ClientesTango;
-
+import Impresiones.Impresora;
 import interfaces.Facturar;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
@@ -21,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import objetos.Articulos;
+import objetos.ClientesTango;
 import objetos.Comprobantes;
 import tablas.MiModeloTablaBuscarCliente;
 import tablas.MiModeloTablaFacturacion;
@@ -662,6 +662,8 @@ public class IngresoDePedidos extends javax.swing.JInternalFrame {
         if(noFacturar==0){
         Facturar fat=new Comprobantes();
         fat.guardar(comprobante);
+        Impresora imp=new Impresora();
+        imp.ImprimirFactura(comprobante);
         /*
          * ACA DEVO LIMPIAR TODOS LOS CAMPOS Y VARIABLES DE LA PANTALLA
          * 

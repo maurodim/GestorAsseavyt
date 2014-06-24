@@ -5,6 +5,8 @@ package Impresiones;
  * and open the template in the editor.
  */
 
+import Conversores.NumberToLetterConverter;
+import Conversores.Numeros;
 import interfaces.Adeudable;
 import interfaces.Generable;
 import java.awt.Color;
@@ -18,6 +20,8 @@ import java.awt.image.ImageObserver;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import objetos.Articulos;
 import objetos.ClientesTango;
@@ -274,7 +278,85 @@ public class Impresora {
 		//	System.out.println("LA IMPRESION HA SIDO CANCELADA..."+e);
 		//}
 	}//FIN DEL PROCEDIMIENTO imprimir(String...)
-
+    public void ImprimirFactura(Comprobantes comp){
+        Comprobantes comprobante=new Comprobantes();
+        comprobante=comp;
+        DecimalFormat fd=new DecimalFormat("00");
+        Calendar c1=Calendar.getInstance();
+	Calendar c2=new GregorianCalendar();
+	String dia=Integer.toString(c2.get(Calendar.DAY_OF_MONTH));
+	String mes=Integer.toString(c2.get(Calendar.MONTH));
+	String ano=Integer.toString(c2.get(Calendar.YEAR));
+	String yy=ano.substring(2);
+        int mess=Integer.parseInt(mes);
+        mess++;
+        mes=String.valueOf(mess);
+        pagina = pj.getGraphics();
+                        //pagina=pj.jobAttributes;
+			pagina.setFont(fuente);
+			pagina.setColor(Color.black);
+                        DecimalFormat fr=new DecimalFormat("#####.##");
+                        //fecha
+                        pagina.drawString(dia, 327,75);
+                        pagina.drawString(mes,363,75);
+                        pagina.drawString(yy,387,75);
+                        // 1 er renglon
+                        pagina.drawString(comprobante.getCliente().getRazonSocial(),140,137);
+                        //2 do renglon
+                        pagina.drawString(comprobante.getCliente().getDireccion(), 135,152);
+                        pagina.drawString("SANTA FE",327,152);
+                        // 3 er renglon
+                        pagina.drawString("SANTA FE", 100,174);
+                        pagina.drawString(comprobante.getCliente().getTelefono(),180,174);
+                        pagina.drawString(comprobante.getCliente().getNumeroDeCuit(), 330,174);
+                        
+                        //situacion iva
+                        int condicion=Integer.parseInt(comprobante.getCliente().getCondicionIva());
+                        switch (condicion){
+                            case 0:
+                                pagina.drawString("X",78,195);
+                                break;
+                            case 1:
+                                pagina.drawString("X",163,195);
+                                break;
+                            case 2:
+                                pagina.drawString("X", 250,195);
+                                break;
+                            case 3:
+                                pagina.drawString("X", 337,195);
+                                break;
+                            case 4:
+                                pagina.drawString("X",78,215);
+                                break;
+                            case 5:
+                                pagina.drawString("X",163,215);
+                                break;
+                            case 6:
+                                pagina.drawString("X",250,215);
+                                break;
+                            case 7:
+                                pagina.drawString("X",337,215);
+                                break;
+                                
+                        }
+                        //articulos
+                        Iterator itA=comprobante.getListadoDeArticulos().listIterator();
+                        Articulos articulo=new Articulos();
+                        Integer renglonI=405;
+                        while(itA.hasNext()){
+                            articulo=(Articulos)itA.next();
+                            pagina.drawString(articulo.getDescripcionArticulo(),60,renglonI);
+                            pagina.drawString(String.valueOf(articulo.getPrecioUnitarioNeto()),380,renglonI);
+                            renglonI=renglonI + 15;
+                        }
+                        pagina.drawString(String.valueOf(comprobante.getMontoTotal()), 383,512);
+        pagina.dispose();
+        pj.end();
+    }
+    public void ImprimirRecibos(){
+        Double num=Numeros.ConvertirStringADouble("11245.9876");
+        System.out.println(NumberToLetterConverter.convertNumberToLetter(num));
+    }
 					
 }//FIN DE LA CLASE Impresora
 

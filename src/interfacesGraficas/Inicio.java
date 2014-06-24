@@ -7,9 +7,8 @@ package interfacesGraficas;
 import Actualizaciones.Actualiza;
 
 import Excel.InformeMensual;
+import Impresiones.Impresora;
 import interfaces.Cajeables;
-
-import objetos.ClientesTango;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -32,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import objetos.Articulos;
 import objetos.Cajas;
+import objetos.ClientesTango;
 import objetos.GastosF;
 import objetos.ListasDePrecios;
 import objetos.Proveedores;
@@ -76,6 +76,8 @@ public class Inicio extends javax.swing.JFrame {
         Proveedores.cargarListadoProv();
         ClientesTango.cargarMap();
         ListasDePrecios.cargarMap();
+        //Impresora imp=new Impresora();
+        //imp.ImprimirRecibos();
 //        Cajas.BackapearCajas();
         Cajas.LeerCajaAdministradora();
         DecimalFormat fr=new DecimalFormat("00");
@@ -91,7 +93,7 @@ public class Inicio extends javax.swing.JFrame {
         dia=fr.format(da);
         mes=fr.format(me);
         fechaDia=ano+"-"+mes+"-"+dia;
-	System.err.println(fechaDia);
+	//System.err.println(fechaDia);
         //fecha="23/12/2011";
         String fh=ano+"-"+mes+"-"+dia;
         SimpleDateFormat ff=new SimpleDateFormat("yyyy-mm-dd");
@@ -318,6 +320,11 @@ public class Inicio extends javax.swing.JFrame {
         jMenu1.add(jMenuItem8);
 
         jMenuItem9.setText("Informes");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem9);
 
         jMenuBar1.add(jMenu1);
@@ -538,6 +545,13 @@ public class Inicio extends javax.swing.JFrame {
         rub.setVisible(true);
         rub.toFront();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        EmisorDeInformes emisor=new EmisorDeInformes();
+        jDesktopPane1.add(emisor);
+        emisor.setVisible(true);
+        emisor.toFront();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
