@@ -654,7 +654,7 @@ public class InformeMensual {
              * HOJA 3
              */
         form=null;
-        sql="SELECT monto,idcaja,fecha,numerosucursal,(select usuarios.nombre from usuarios where usuarios.numero=movimientoscaja.numeroUsuario) as nombreU,(select tipomovimientos.descripcion from tipomovimientos where tipomovimientos.id=movimientoscaja.tipoMovimiento)as descripcionMovimiento,(select listcli.RAZON_SOCI from listcli where listcli.codMMd=movimientoscaja.idCliente)as nombreC FROM movimientoscaja where monto < 0 and idcaja="+idCaja;
+        sql="SELECT monto,idcaja,fecha,observaciones,numerosucursal,(select usuarios.nombre from usuarios where usuarios.numero=movimientoscaja.numeroUsuario) as nombreU,(select tipomovimientos.descripcion from tipomovimientos where tipomovimientos.id=movimientoscaja.tipoMovimiento)as descripcionMovimiento,(select listcli.RAZON_SOCI from listcli where listcli.codMMd=movimientoscaja.idCliente)as nombreC FROM movimientoscaja where monto < 0 and idcaja="+idCaja;
         System.out.println(sql);
         //tra=new Conecciones();
         rs=tra.leerConjuntoDeRegistros(sql);
