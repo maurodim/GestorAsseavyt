@@ -5,8 +5,12 @@
 package interfacesGraficas;
 
 import Conversores.Numeros;
+import Excel.InformeMensual;
 import interfaces.Cajeables;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetos.Cajas;
 
 /**
@@ -413,6 +417,12 @@ public class ArqueoDeCaja extends javax.swing.JInternalFrame {
         
         //cajas.setTotalVentas(totalB);
         caj.CerrarCaja(cajas);
+        InformeMensual info=new InformeMensual();
+        try {
+            info.InformeMensual1(Inicio.numeroCajaAdministradora);
+        } catch (SQLException ex) {
+            Logger.getLogger(ArqueoDeCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
         System.exit(1);
     }//GEN-LAST:event_jButton1ActionPerformed

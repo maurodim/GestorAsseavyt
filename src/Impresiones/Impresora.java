@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.PrintJob;
 import java.awt.Toolkit;
+import java.awt.image.ImageObserver;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -68,8 +69,8 @@ public class Impresora {
                         int a=0;
                         int renglon=30;
                         int columna=150;
-                        int columna1=40;
-                        int renglonImagen=30;
+                        int columna1=30;
+                        int renglonImagen=20;
                         //String condicionDeVenta=null;
                         
                         switch (tipoComprobante){
@@ -82,7 +83,11 @@ public class Impresora {
                                 Generable gen=new Planes();
                                 Adeudable adeu=new ClientesTango();
                                 ClientesTango cliente=new ClientesTango();
-                                Image imagen=Toolkit.getDefaultToolkit().getImage("c://Gestion//imagen//aseavyt.jpg");
+                                Image imagen=Toolkit.getDefaultToolkit().getImage("c://Gestion//imagen//encabezado.jpg");
+                                //imagen.getGraphics () ;
+//Graphics g = pj.getGraphics (); 
+//g.drawImage (imagen, 0, 0,798, 497, Color.white, null); 
+//g.dispose (); 
                                 Iterator il=listado.listIterator();
                                 while(il.hasNext()){
                                     a++;
@@ -92,8 +97,13 @@ public class Impresora {
                                     //renglon=20;
                                     //columna=90;
                                     if(a==1){
-                                    pagina.drawImage(imagen,columna1,renglonImagen,90,40, null);
+                                    pagina.drawImage(imagen,columna1,renglonImagen,null);
+                                    //Graphics g = pj.getGraphics (); 
+                                    //g.drawImage (imagen, 0, 0,798, 497, Color.white, null);
+                                    //pagina=g;
                                     //pagina.drawImage(imagen,columna1,renglon, null);
+                                    
+                                    /*
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
                                     renglon=renglon + 10;
                                     pagina.drawString("Tel: 0342-4532651",columna,renglon);
@@ -103,6 +113,7 @@ public class Impresora {
                                     pagina.setFont(fuente3);
                                     pagina.drawString("CUIT.:30-61200162-2",columna,renglon);
                                     pagina.setFont(fuente1);
+                                    */
                                     renglon=renglon + 35;
                                     //cuerpo
                                     
@@ -134,8 +145,9 @@ public class Impresora {
                                         columna=columna +260;
                                         columna1=columna1 + 260;
                                         
-                                        pagina.drawImage(imagen,columna1,renglonImagen,90,40, null);
+                                        pagina.drawImage(imagen,columna1,renglonImagen, null);
                                     //pagina.drawImage(imagen,columna1,renglon, null);
+                                      /*  
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
                                     renglon=renglon + 10;
                                     pagina.drawString("Tel: 0342-4532651",columna,renglon);
@@ -145,6 +157,7 @@ public class Impresora {
                                     pagina.setFont(fuente3);
                                     pagina.drawString("CUIT.:30-61200162-2",columna,renglon);
                                     pagina.setFont(fuente1);
+                                        */
                                     renglon=renglon + 35;
                                     //cuerpo
                                     
