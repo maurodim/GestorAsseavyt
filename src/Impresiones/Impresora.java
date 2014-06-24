@@ -169,7 +169,7 @@ public class Impresora {
                                     renglon=renglon + 17;
                                     pagina.drawString(cliente.getDireccion(),columna1,renglon);
                                     renglon=renglon + 17;
-                                    pagina.drawString("SANTA FE",columna1,renglon);
+                                    pagina.drawString(cliente.getLocalidad(),columna1,renglon);
                                     // pie
                                     renglon=renglon + 20;
                                     pagina.setFont(fuente);
@@ -353,9 +353,83 @@ public class Impresora {
         pagina.dispose();
         pj.end();
     }
-    public void ImprimirRecibos(){
-        Double num=Numeros.ConvertirStringADouble("11245.9876");
-        System.out.println(NumberToLetterConverter.convertNumberToLetter(num));
+    public void ImprimirRecibos(Comprobantes comp){
+        Comprobantes comprobante=new Comprobantes();
+        comprobante=comp;
+        DecimalFormat fd=new DecimalFormat("00");
+        Calendar c1=Calendar.getInstance();
+	Calendar c2=new GregorianCalendar();
+	String dia=Integer.toString(c2.get(Calendar.DAY_OF_MONTH));
+	String mes=Integer.toString(c2.get(Calendar.MONTH));
+	String ano=Integer.toString(c2.get(Calendar.YEAR));
+	String yy=ano.substring(2);
+        int mess=Integer.parseInt(mes);
+        mess++;
+        switch (mess){
+            case 1:
+                mes="ENERO";
+                break;
+            case 2:
+                mes="FEBRERO";
+                break;
+            case 3:
+                mes="MARZO";
+                break;
+            case 4:
+                mes="ABRIL";
+                break;
+            case 5:
+                mes="MAYO";
+                break;
+                case 6:
+                mes="JUNIO";
+                break;
+                case 7:
+                    mes="JULIO";
+                    break;
+                case 8:
+                    mes="AGOSTO";
+                    break;
+                case 9:
+                    mes="SETIEMBRE";
+                    break;
+                case 10:
+                    mes="OCTUBRE";
+                    break;
+                case 11:
+                    mes="NOVIEMBRE";
+                    break;
+                case 12:
+                    mes="DICIEMBRE";
+                    break;
+                    
+                
+        }
+        //mes=String.valueOf(mess);
+        String mont=String.valueOf(comprobante.getMontoTotal());
+        int posi=mont.indexOf(".");
+        String numAConv=mont.substring(0,posi);
+        posi++;
+        String decimales=mont.substring(posi);
+        pagina = pj.getGraphics();
+        Image imagen=Toolkit.getDefaultToolkit().getImage("c://Gestion//imagen//aseavyt.jpg");
+                        //pagina=pj.jobAttributes;
+			pagina.setFont(fuente1);
+			pagina.setColor(Color.black);
+                        DecimalFormat fr=new DecimalFormat("#####.##");
+        
+                        pagina.drawImage(imagen,10,10,200,50,null);
+                        pagina.drawString("RECIBO",250,40);
+                        pagina.setFont(fuente);
+                        pagina.drawString("RECIBÍ $ "+mont,390,60);
+                        
+        Double num=Numeros.ConvertirStringADouble(numAConv);
+        pagina.drawString("FECHA :"+dia+" de "+mes+" del "+ano,70,110);
+        pagina.drawString("SON PESOS :"+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales,70,130);
+        
+        
+        pagina.dispose();
+        pj.end();
     }
 					
 }//FIN DE LA CLASE Impresora

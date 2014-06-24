@@ -6,6 +6,7 @@ package interfacesGraficas;
 
 
 import Conversores.Numeros;
+import Impresiones.Impresora;
 import interfaces.Adeudable;
 import interfaces.Busquedas;
 import interfaces.Cajeables;
@@ -444,7 +445,8 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                comprobantes.setMontoTotal(Double.parseDouble(this.jTextField1.getText()));
                comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
                adeu.PagarComprobante(comprobantes);
-               
+               Impresora imprimir=new Impresora();
+               imprimir.ImprimirRecibos(comprobantes);
                             listadoC.clear();
                operacionSelect=0;
                this.jPanel2.setVisible(false);
