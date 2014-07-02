@@ -16,13 +16,17 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.PrintJob;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import javax.imageio.ImageIO;
 import objetos.Articulos;
 import objetos.ClientesTango;
 import objetos.Comprobantes;
@@ -60,7 +64,7 @@ public class Impresora {
 	*	colocar en el objeto gráfico la cadena que se le pasa como 		*
 	*	parámetro y se imprime.											*
 	********************************************************************/
-    public void imprimir(ArrayList listado,Integer tipoComprobante) throws SQLException	{
+    public void imprimir(ArrayList listado,Integer tipoComprobante) throws SQLException, IOException	{
 		//LO COLOCO EN UN try/catch PORQUE PUEDEN CANCELAR LA IMPRESION
             
 		//try
@@ -87,8 +91,9 @@ public class Impresora {
                                 Generable gen=new Planes();
                                 Adeudable adeu=new ClientesTango();
                                 ClientesTango cliente=new ClientesTango();
-                                Image imagen=Toolkit.getDefaultToolkit().getImage("c://Gestion//imagen//encabezado.jpg");
-                                //imagen.getGraphics () ;
+                                //Image imagen1=.getImage("C://Gestion//imagen//encabezado.jpg");
+                                BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//encabezado.jpg"));
+//imagen.getGraphics () ;
 //Graphics g = pj.getGraphics (); 
 //g.drawImage (imagen, 0, 0,798, 497, Color.white, null); 
 //g.dispose (); 
@@ -101,11 +106,12 @@ public class Impresora {
                                     //renglon=20;
                                     //columna=90;
                                     if(a==1){
-                                    pagina.drawImage(imagen,columna1,renglonImagen,null);
+                                    //pagina.drawImage(imagen,columna1,renglonImagen,null);
+                                        
                                     //Graphics g = pj.getGraphics (); 
                                     //g.drawImage (imagen, 0, 0,798, 497, Color.white, null);
                                     //pagina=g;
-                                    //pagina.drawImage(imagen,columna1,renglon, null);
+                                    pagina.drawImage(imagen,columna1,renglon, null);
                                     
                                     /*
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
@@ -142,6 +148,7 @@ public class Impresora {
                                     pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 85,renglon);
                                     pagina.drawString(cuota.getPeriodo(),columna1 + 140,renglon);
                                     pagina.setFont(fuente);
+                                    //pagina.drawImage(imagen,columna1,renglonImagen,null);
                                     renglon=renglon - 139;
                                     //renglonImagen=renglonImagen - 149;
                                     System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
