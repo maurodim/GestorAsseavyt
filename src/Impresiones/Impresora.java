@@ -75,10 +75,10 @@ public class Impresora {
 			pagina.setColor(Color.black);
                         DecimalFormat fr=new DecimalFormat("#####.##");
                         int a=0;
-                        int renglon=30;
+                        int renglon=10;
                         int columna=150;
-                        int columna1=30;
-                        int renglonImagen=20;
+                        int columna1=20;
+                        int renglonImagen=10;
                         //String condicionDeVenta=null;
                         
                         switch (tipoComprobante){
@@ -111,7 +111,7 @@ public class Impresora {
                                     //Graphics g = pj.getGraphics (); 
                                     //g.drawImage (imagen, 0, 0,798, 497, Color.white, null);
                                     //pagina=g;
-                                    pagina.drawImage(imagen,columna1,renglon, null);
+                                    pagina.drawImage(imagen,0,renglon,280,225, null);
                                     
                                     /*
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
@@ -124,13 +124,13 @@ public class Impresora {
                                     pagina.drawString("CUIT.:30-61200162-2",columna,renglon);
                                     pagina.setFont(fuente1);
                                     */
-                                    renglon=renglon + 35;
+                                    renglon=renglon + 105;
                                     //cuerpo
                                     
                                     pagina.drawString(cliente.getRazonSocial(),columna1,renglon);
-                                    renglon=renglon + 17;
+                                    renglon=renglon + 12;
                                     pagina.drawString(cliente.getDireccion(),columna1,renglon);
-                                    renglon=renglon + 17;
+                                    renglon=renglon + 12;
                                     pagina.drawString("SANTA FE",columna1,renglon);
                                     // pie
                                     renglon=renglon + 20;
@@ -149,14 +149,15 @@ public class Impresora {
                                     pagina.drawString(cuota.getPeriodo(),columna1 + 140,renglon);
                                     pagina.setFont(fuente);
                                     //pagina.drawImage(imagen,columna1,renglonImagen,null);
-                                    renglon=renglon - 139;
-                                    //renglonImagen=renglonImagen - 149;
+                                    System.out.println("renglon tiene que estar en 10 esta en "+renglon);
+                                    renglon=renglon - 169;
+                                    //renglonImagen=renglon - 10;
                                     System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }else{
-                                        columna=columna +260;
-                                        columna1=columna1 + 260;
+                                        columna=columna +290;
+                                        columna1=columna1 + 290;
                                         
-                                        pagina.drawImage(imagen,columna1,renglonImagen, null);
+                                        pagina.drawImage(imagen,300,renglonImagen,280,225, null);
                                     //pagina.drawImage(imagen,columna1,renglon, null);
                                       /*  
                                     pagina.drawString("San Martin 2819 P.A. Of. 1",columna,renglon);
@@ -169,13 +170,13 @@ public class Impresora {
                                     pagina.drawString("CUIT.:30-61200162-2",columna,renglon);
                                     pagina.setFont(fuente1);
                                         */
-                                    renglon=renglon + 35;
+                                    renglon=renglon + 105;
                                     //cuerpo
                                     
                                     pagina.drawString(cliente.getRazonSocial(),columna1,renglon);
-                                    renglon=renglon + 17;
+                                    renglon=renglon + 12;
                                     pagina.drawString(cliente.getDireccion(),columna1,renglon);
-                                    renglon=renglon + 17;
+                                    renglon=renglon + 12;
                                     pagina.drawString(cliente.getLocalidad(),columna1,renglon);
                                     // pie
                                     renglon=renglon + 20;
@@ -193,11 +194,12 @@ public class Impresora {
                                     pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 85,renglon);
                                     pagina.drawString(cuota.getPeriodo(),columna1 + 140,renglon);
                                     pagina.setFont(fuente);
-                                    renglon=renglon + 30;
-                                    renglonImagen=renglon - 10;
+                                    System.out.println("renglon tiene que estar en 10 esta en "+renglon);
+                                    renglon=renglon + 145;
+                                    renglonImagen=renglon - 135;
                                     a=0;
-                                    columna=columna -260;
-                                    columna1=columna1 - 260;
+                                    columna=columna -290;
+                                    columna1=columna1 - 290;
                                        System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }
                                     //adeu.PagarComprobante(cliente);
