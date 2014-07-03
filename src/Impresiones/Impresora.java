@@ -93,18 +93,28 @@ public class Impresora {
                                 ClientesTango cliente=new ClientesTango();
                                 //Image imagen1=.getImage("C://Gestion//imagen//encabezado.jpg");
                                 BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//encabezado.jpg"));
-//imagen.getGraphics () ;
-//Graphics g = pj.getGraphics (); 
-//g.drawImage (imagen, 0, 0,798, 497, Color.white, null); 
-//g.dispose (); 
+                                //imagen.getGraphics () ;
+                                //Graphics g = pj.getGraphics (); 
+                                //g.drawImage (imagen, 0, 0,798, 497, Color.white, null); 
+                                //g.dispose (); 
                                 Iterator il=listado.listIterator();
+                                int b=0;
                                 while(il.hasNext()){
                                     a++;
+                                    b++;
                                     cliente=(ClientesTango)il.next();
                                     
                                     //encabezado
                                     //renglon=20;
                                     //columna=90;
+                                    if(b==9){
+                                        b=0;
+                                        renglon=10;
+                                        columna=150;
+                                        columna1=20;
+                                        renglonImagen=10;
+                                        
+                                    }
                                     if(a==1){
                                         //pagina.drawImage(imagen,columna1,renglonImagen,null);
 
@@ -195,8 +205,8 @@ public class Impresora {
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 140,renglon);
                                         pagina.setFont(fuente);
                                         System.out.println("renglon tiene que estar en 10 esta en "+renglon);
-                                        renglon=renglon + 145;
-                                        renglonImagen=renglon - 135;
+                                        renglon=renglon + 55;
+                                        renglonImagen=renglon - 45;
                                         a=0;
                                         columna=columna -290;
                                         columna1=columna1 - 290;
@@ -362,7 +372,7 @@ public class Impresora {
         pagina.dispose();
         pj.end();
     }
-    public void ImprimirRecibos(Comprobantes comp){
+    public void ImprimirRecibos(Comprobantes comp) throws IOException{
         Comprobantes comprobante=new Comprobantes();
         comprobante=comp;
         DecimalFormat fd=new DecimalFormat("00");
@@ -421,7 +431,7 @@ public class Impresora {
         posi++;
         String decimales=mont.substring(posi);
         pagina = pj.getGraphics();
-        Image imagen=Toolkit.getDefaultToolkit().getImage("c://Gestion//imagen//aseavyt.jpg");
+        BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt.jpg"));
                         //pagina=pj.jobAttributes;
 			pagina.setFont(fuente1);
 			pagina.setColor(Color.black);
@@ -433,8 +443,10 @@ public class Impresora {
                         pagina.drawString("RECIBÍ $ "+mont,390,60);
                         
         Double num=Numeros.ConvertirStringADouble(numAConv);
-        pagina.drawString("FECHA :"+dia+" de "+mes+" del "+ano,70,110);
-        pagina.drawString("SON PESOS :"+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales,70,130);
+        
+        pagina.drawString("FECHA :"+dia+" de "+mes+" del "+ano,15,90);
+        pagina.drawString("RECIBI DEL SR. :"+comprobante.getCliente().getRazonSocial()+" LA CANTIDAD DE PESOS $"+mont,15,110);
+        pagina.drawString("SON :"+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales,15,130);
         
         
         pagina.dispose();
