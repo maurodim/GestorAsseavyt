@@ -11,9 +11,12 @@ import interfaces.Adeudable;
 import interfaces.Busquedas;
 import interfaces.Cajeables;
 import interfaces.Personalizable;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import objetos.Articulos;
 import objetos.Cajas;
@@ -446,7 +449,11 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
                adeu.PagarComprobante(comprobantes);
                Impresora imprimir=new Impresora();
-               imprimir.ImprimirRecibos(comprobantes);
+       try {
+           imprimir.ImprimirRecibos(comprobantes);
+       } catch (IOException ex) {
+           Logger.getLogger(CajaAbm.class.getName()).log(Level.SEVERE, null, ex);
+       }
                             listadoC.clear();
                operacionSelect=0;
                this.jPanel2.setVisible(false);

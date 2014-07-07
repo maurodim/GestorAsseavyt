@@ -9,6 +9,7 @@ package interfacesGraficas;
 import Impresiones.Impresora;
 import interfaces.Busquedas;
 import interfaces.Generable;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -171,6 +172,8 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
         try {
             imp.imprimir(seleccion,1);
         } catch (SQLException ex) {
+            Logger.getLogger(EmisionDeRecibos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(EmisionDeRecibos.class.getName()).log(Level.SEVERE, null, ex);
         }
         
