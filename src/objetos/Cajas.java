@@ -634,9 +634,67 @@ public class Cajas implements Cajeables{
     }
 
     @Override
-    public Boolean EliminarMovimiento(Integer idMovimiento) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Boolean EliminarMovimiento(Integer idMovimiento,Integer idComprobante,Integer tipoMovimiento) {
+        String sql="";
+       Transaccionable tra=new ConeccionLocal();
+       Boolean verif=false;
+       Cajas cajjaa=null;
+       
+       //JOptionPane.showMessageDialog(null," tipo de movimienot "+tipoMovimiento);
+        switch (tipoMovimiento){
+           case 1:
+               //ventas -- leo en articulos para sacar el detalle, devuelvo un objeto comprobantes
+               sql="delete movimientosarticulos where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numerousuario="+Inicio.usuario.getNumeroId()+" and tipoMovimiento=1";
+               if(tra.guardarRegistro(sql))verif=true;
+               //System.out.println(sql);
+       
+               break;
+        
+           case 4:
+               //retiro de efectivo -- leo en movimientos de caja, devuelvo un objeto caja
+               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
+              if(tra.guardarRegistro(sql))verif=true;
+               break;
+           case 7:
+               //Ingreso de caja -- leo en movimientos de caja, devuelvo un objeto caja
+               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=7"; 
+               if(tra.guardarRegistro(sql))verif=true;
+               break;
+           case 9:
+               //Saldo inicial -- leo en movimientos de caja, devuelvo un obejto caja
+               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=9"; 
+               if(tra.guardarRegistro(sql))verif=true;
+               break;
+           case 10:
+               //cierre caja -- leo en movimientos de caja, devuelvo un objeto caja
+               sql="delete movimientoscaja  where idcaja="+Inicio.caja.getNumero()+" and movimientoscaja.tipoMovimiento=10"; 
+               //System.out.println(sql);
+               if(tra.guardarRegistro(sql))verif=true;
+               break;
+           case 11:
+               //pago a proveedores -- leo en movimientos de caja, devuelvo un objeto caja
+               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=11"; 
+               if(tra.guardarRegistro(sql))verif=true;
+               break;
+           case 12:
+               //gastos de caja -- leo en movimientos de caja, devuelvo un objeto caja
+               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=12"; 
+               if(tra.guardarRegistro(sql))verif=true;
+               break;
+           case 13:
+               //cobro cta cte clientes -- leo en movimientos caja, devuelvo un obejto caja
+               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
+               if(tra.guardarRegistro(sql))verif=true;
+               break;
+               
+           default:
+               
+               break;
+       }
+       
+       return true;
     }
+
 
     @Override
     public Object ArquearCaja(Object caja) {

@@ -18,7 +18,7 @@ public interface Cajeables {
     public Double SaldoDeCaja(ArrayList listadoBilletes);
     public Boolean NuevoMovimiento(Object factura);
     public Object ModificarMovimiento(Integer idMovimiento);
-    public Boolean EliminarMovimiento(Integer idMovimiento);
+    public Boolean EliminarMovimiento(Integer idMovimiento,Integer idComprobante,Integer tipoComprobante);
     public Object ArquearCaja(Object caja);
     public Boolean VerificarCaja(int numeroDeUsuario,int numeroDeSucursal,String fecha);
     public Object CargarCaja(int numeroDeUsuario, int numeroDeSucursal, String fecha);
