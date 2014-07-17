@@ -99,7 +99,8 @@ public class ListadoComprobantes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    Cajeables caj=new Cajas();
+    System.out.println("vamos a ver que manda "+idMov+"  comp "+idComp+" tipo m"+tipoMov);
+        Cajeables caj=new Cajas();
         if(caj.EliminarMovimiento(idMov,idComp,tipoMov))this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

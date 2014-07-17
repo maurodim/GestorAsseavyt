@@ -274,11 +274,12 @@ public class ConeccionLocal implements Transaccionable{
                     //Sucursales.BackapearSucursales();
                     //Depositos.BackapearDepositos();
                     
+                    /*
                     Articulos.RecargarMap();
                     Proveedores.cargarListadoProv();
                     ClientesTango.cargarMap();
                     ListasDePrecios.cargarMap();
-                    
+                    */
                      
         } catch (SQLException ex) {
             Logger.getLogger(ConeccionLocal.class.getName()).log(Level.SEVERE, null, ex);

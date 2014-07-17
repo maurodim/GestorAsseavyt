@@ -732,4 +732,9 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
             }
             return listado;
     }  
+    public void eliminarSocio(Integer id){
+        String sql="delete from listcli where codmmd="+id;
+        Transaccionable tra=new ConeccionLocal();
+        tra.guardarRegistro(sql);
+    } 
 }

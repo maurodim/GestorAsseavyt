@@ -644,46 +644,48 @@ public class Cajas implements Cajeables{
         switch (tipoMovimiento){
            case 1:
                //ventas -- leo en articulos para sacar el detalle, devuelvo un objeto comprobantes
-               sql="delete movimientosarticulos where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numerousuario="+Inicio.usuario.getNumeroId()+" and tipoMovimiento=1";
+               sql="delete from movimientosarticulos where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numerousuario="+Inicio.usuario.getNumeroId()+" and tipoMovimiento=1";
                if(tra.guardarRegistro(sql))verif=true;
                //System.out.println(sql);
-       
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numerousuario="+Inicio.usuario.getNumeroId()+" and tipoMovimiento=1";
+               if(tra.guardarRegistro(sql))verif=true;
                break;
         
            case 4:
                //retiro de efectivo -- leo en movimientos de caja, devuelvo un objeto caja
-               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
               if(tra.guardarRegistro(sql))verif=true;
                break;
            case 7:
                //Ingreso de caja -- leo en movimientos de caja, devuelvo un objeto caja
-               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=7"; 
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=7"; 
                if(tra.guardarRegistro(sql))verif=true;
                break;
            case 9:
                //Saldo inicial -- leo en movimientos de caja, devuelvo un obejto caja
-               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=9"; 
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=9"; 
+               System.out.println(sql);
                if(tra.guardarRegistro(sql))verif=true;
                break;
            case 10:
                //cierre caja -- leo en movimientos de caja, devuelvo un objeto caja
-               sql="delete movimientoscaja  where idcaja="+Inicio.caja.getNumero()+" and movimientoscaja.tipoMovimiento=10"; 
+               sql="delete from movimientoscaja  where idcaja="+Inicio.caja.getNumero()+" and movimientoscaja.tipoMovimiento=10"; 
                //System.out.println(sql);
                if(tra.guardarRegistro(sql))verif=true;
                break;
            case 11:
                //pago a proveedores -- leo en movimientos de caja, devuelvo un objeto caja
-               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=11"; 
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=11"; 
                if(tra.guardarRegistro(sql))verif=true;
                break;
            case 12:
                //gastos de caja -- leo en movimientos de caja, devuelvo un objeto caja
-               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=12"; 
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=12"; 
                if(tra.guardarRegistro(sql))verif=true;
                break;
            case 13:
                //cobro cta cte clientes -- leo en movimientos caja, devuelvo un obejto caja
-               sql="delete movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
+               sql="delete from movimientoscaja where tipoComprobante="+idMovimiento+" and numeroComprobante="+idComprobante+" and numeroUsuario="+Inicio.usuario.getNumeroId()+" and movimientoscaja.tipoMovimiento=4"; 
                if(tra.guardarRegistro(sql))verif=true;
                break;
                
