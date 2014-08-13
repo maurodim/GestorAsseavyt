@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Mon Jul 21 13:09:11 ART 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0147-59af-10cb-000004008e10 
-on database directory C:\Gestion\DBAseavyt\gestion.db  with class loader sun.misc.Launcher$AppClassLoader@7ea987ac 
-Loaded from file:/C:/Users/Usuario/Google%20Drive/bbsGestion/dist/lib/derby.jar
+Wed Aug 13 12:48:08 GMT-03:00 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0147-d00e-0fce-00000338e880 
+on database directory C:\Gestion\DBAseavyt\gestion.db  with class loader sun.misc.Launcher$AppClassLoader@6fafc4c2 
+Loaded from file:/C:/Users/mauro%20di/Google%20Drive/NetBeansProjects/bbsGestion/dist/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_05-b13
-user.dir=C:\Users\Usuario\Google Drive\NetBeansProjects\GestorAseavyt
+java.runtime.version=1.7.0_65-b19
+user.dir=C:\Users\mauro di\Documents\NetBeansProjects\GestorAsseavyt
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

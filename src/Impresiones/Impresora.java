@@ -316,64 +316,65 @@ public class Impresora {
 			pagina.setColor(Color.black);
                         DecimalFormat fr=new DecimalFormat("#####.##");
                         //fecha
-                        pagina.drawString(dia, 327,75);
-                        pagina.drawString(mes,363,75);
-                        pagina.drawString(yy,387,75);
+                        pagina.drawString(dia, 327,76);
+                        pagina.drawString(mes,363,76);
+                        pagina.drawString(yy,387,76);
                         // 1 er renglon
-                        pagina.drawString(comprobante.getCliente().getRazonSocial(),140,137);
+                        pagina.drawString(comprobante.getCliente().getRazonSocial(),140,138);
                         //2 do renglon
-                        pagina.drawString(comprobante.getCliente().getDireccion(), 135,152);
-                        pagina.drawString("SANTA FE",327,152);
+                        pagina.drawString(comprobante.getCliente().getDireccion(), 135,153);
+                        pagina.drawString("SANTA FE",327,153);
                         // 3 er renglon
-                        pagina.drawString("SANTA FE", 100,174);
-                        pagina.drawString(comprobante.getCliente().getTelefono(),180,174);
-                        pagina.drawString(comprobante.getCliente().getNumeroDeCuit(), 330,174);
+                        pagina.drawString("SANTA FE", 100,175);
+                        pagina.drawString(comprobante.getCliente().getTelefono(),180,175);
+                        pagina.drawString(comprobante.getCliente().getNumeroDeCuit(), 330,175);
                         
                         //situacion iva
                         int condicion=Integer.parseInt(comprobante.getCliente().getCondicionIva());
                         switch (condicion){
                             case 0:
-                                pagina.drawString("X",78,195);
+                                pagina.drawString("X",78,196);
                                 break;
                             case 1:
-                                pagina.drawString("X",163,195);
+                                pagina.drawString("X",163,196);
                                 break;
                             case 2:
-                                pagina.drawString("X", 250,195);
+                                pagina.drawString("X", 250,196);
                                 break;
                             case 3:
-                                pagina.drawString("X", 337,195);
+                                pagina.drawString("X", 337,196);
                                 break;
                             case 4:
-                                pagina.drawString("X",78,215);
+                                pagina.drawString("X",78,216);
                                 break;
                             case 5:
-                                pagina.drawString("X",163,215);
+                                pagina.drawString("X",163,216);
                                 break;
                             case 6:
-                                pagina.drawString("X",250,215);
+                                pagina.drawString("X",250,216);
                                 break;
                             case 7:
-                                pagina.drawString("X",337,215);
+                                pagina.drawString("X",337,216);
                                 break;
                                 
                         }
                         //articulos
                         Iterator itA=comprobante.getListadoDeArticulos().listIterator();
                         Articulos articulo=new Articulos();
-                        Integer renglonI=405;
+                        Integer renglonI=406;
                         while(itA.hasNext()){
                             articulo=(Articulos)itA.next();
                             pagina.drawString(articulo.getDescripcionArticulo(),60,renglonI);
                             pagina.drawString(String.valueOf(articulo.getPrecioUnitarioNeto()),380,renglonI);
                             renglonI=renglonI + 15;
                         }
-                        pagina.drawString(String.valueOf(comprobante.getMontoTotal()), 383,512);
+                        pagina.drawString(String.valueOf(comprobante.getMontoTotal()), 383,513);
         pagina.dispose();
         pj.end();
     }
     public void ImprimirRecibos(Comprobantes comp) throws IOException{
         Comprobantes comprobante=new Comprobantes();
+        //BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//encabezado.jpg"));
         comprobante=comp;
         DecimalFormat fd=new DecimalFormat("00");
         Calendar c1=Calendar.getInstance();
@@ -431,13 +432,13 @@ public class Impresora {
         posi++;
         String decimales=mont.substring(posi);
         pagina = pj.getGraphics();
-        BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt.jpg"));
+        BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logo.jpg"));
                         //pagina=pj.jobAttributes;
 			pagina.setFont(fuente1);
 			pagina.setColor(Color.black);
                         DecimalFormat fr=new DecimalFormat("#####.##");
         
-                        pagina.drawImage(imagen,10,10,200,50,null);
+                        pagina.drawImage(imagen,15,10,250,50,null);
                         pagina.drawString("RECIBO",250,40);
                         pagina.setFont(fuente);
                         pagina.drawString("RECIBÍ $ "+mont,390,60);
