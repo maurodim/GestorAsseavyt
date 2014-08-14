@@ -459,7 +459,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
     }
     private void GuardarNumeroRecibo(){
         Transaccionable tra=new ConeccionLocal();
-        String sql="update tipocomprobantes set numeroActivo="+numeroRecibo+" where numero=11";
+        String sql="update tipocomprobantes set numeroActivo="+numeroRecibo+" where numero=5";
         tra.guardarRegistro(sql);
     }
     @Override
@@ -685,6 +685,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
        sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+numeroRecibo+",6,"+monto+",13,"+Inicio.caja.getNumero()+","+factProv.getCliente().getCodigoId()+",1,1)";
        tra.guardarRegistro(sql);
        GuardarNumeroRecibo();
+       factProv.setNumero(numeroRecibo);
        return factProv;
     }
     public void emitirCuotas(ArrayList listado){

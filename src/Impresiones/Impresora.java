@@ -44,7 +44,8 @@ public class Impresora {
     Font fuente1=new Font("Arial",Font.BOLD,16);
     Font fuente3 = new Font("Arial", Font.PLAIN, 7);
     Font fuente4 = new Font("Arial", Font.BOLD,7);
-    
+    Font fuente5=new Font("Arial",Font.PLAIN,16);
+    Font fuente6 = new Font("Arial", Font.BOLD, 9);
 	PrintJob pj;	
 	Graphics pagina;
 	
@@ -376,6 +377,7 @@ public class Impresora {
         Comprobantes comprobante=new Comprobantes();
         //BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//encabezado.jpg"));
         comprobante=comp;
+        int nnum=comprobante.getNumero();
         DecimalFormat fd=new DecimalFormat("00");
         Calendar c1=Calendar.getInstance();
 	Calendar c2=new GregorianCalendar();
@@ -438,18 +440,36 @@ public class Impresora {
 			pagina.setColor(Color.black);
                         DecimalFormat fr=new DecimalFormat("#####.##");
         
-                        pagina.drawImage(imagen,15,10,250,50,null);
-                        pagina.drawString("RECIBO",250,40);
-                        pagina.setFont(fuente);
-                        pagina.drawString("RECIBÍ $ "+mont,390,60);
-                        
-        Double num=Numeros.ConvertirStringADouble(numAConv);
+                        pagina.drawImage(imagen,15,10,370,50,null);
+                        pagina.drawString("RECIBO",410,30);
+                        //pagina.setFont(fuente);
+                        imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
+                        pagina.drawImage(imagen,250,120,160,70,null);
+                        Double num=Numeros.ConvertirStringADouble(numAConv);
+                        pagina.setFont(fuente5);
+                        pagina.drawString("N° "+nnum,410,50);
+                        pagina.setFont(fuente3);
+                        pagina.drawString("PERSONERÍA JURÍDICA 12815",220 ,60);
+                        pagina.drawString("San Martin 2819 - Pta Alta - Oficina 1 - Tel/Fax: (0342) 4532651 - (S3000FSI) Santa Fe", 105,70);
+                        pagina.drawString("E-mail: secretaria@aseavyt.org.ar - Web:www.aseavyt.org.ar",150,80);
+        //Double num=Numeros.ConvertirStringADouble(numAConv);
+        pagina.setFont(fuente);
         
-        pagina.drawString("FECHA :"+dia+" de "+mes+" del "+ano,15,90);
-        pagina.drawString("RECIBI DEL SR. :"+comprobante.getCliente().getRazonSocial()+" LA CANTIDAD DE PESOS $"+mont,15,110);
-        pagina.drawString("SON :"+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales,15,130);
-        
-        
+        pagina.drawString("Santa Fe :"+dia+" de "+mes+" de "+ano,310,100);
+        //pagina.drawLine(70, 110, 200, 110);
+        pagina.drawString("Recibí de "+comprobante.getCliente().getRazonSocial(),15,110);
+        //pagina.drawLine(140, 130, 400, 130);
+        pagina.drawString("La cantidad de Pesos "+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales, 15,130);
+        pagina.drawLine(90, 150, 440, 150);
+        pagina.drawString("en concepto de ",15,150);
+        pagina.drawLine(15, 170, 440, 170);
+        pagina.drawLine(15, 180, 100, 180);
+        pagina.setFont(fuente6);
+        pagina.drawString("Son $ "+mont,15,190);
+        pagina.setFont(fuente3);
+        pagina.drawLine(15, 200, 100, 200);
+        pagina.drawLine(250, 200, 440, 200);
+        pagina.drawString("por ASEAVYT", 330, 210);
         pagina.dispose();
         pj.end();
     }
