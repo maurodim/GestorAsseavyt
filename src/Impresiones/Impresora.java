@@ -46,6 +46,7 @@ public class Impresora {
     Font fuente4 = new Font("Arial", Font.BOLD,7);
     Font fuente5=new Font("Arial",Font.PLAIN,16);
     Font fuente6 = new Font("Arial", Font.BOLD, 9);
+    Font fuente7=new Font("Sans Serif", Font.BOLD,7);
 	PrintJob pj;	
 	Graphics pagina;
 	
@@ -100,6 +101,7 @@ public class Impresora {
                                 //g.dispose (); 
                                 Iterator il=listado.listIterator();
                                 int b=0;
+                                String vencimiento="";
                                 //int ba=0;
                                 while(il.hasNext()){
                                     a++;
@@ -146,12 +148,12 @@ public class Impresora {
                                         */
                                         renglon=renglon + 105;
                                         //cuerpo
-
-                                        pagina.drawString(cliente.getRazonSocial(),columna1,renglon);
+                                        pagina.setFont(fuente6);
+                                        pagina.drawString(cliente.getRazonSocial(),columna1 + 15,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getDireccion(),columna1,renglon);
+                                        pagina.drawString(cliente.getDireccion(),columna1 + 15,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString("SANTA FE",columna1,renglon);
+                                        pagina.drawString(cliente.getLocalidad(),columna1 + 15,renglon);
                                         // pie
                                         renglon=renglon + 20;
                                         pagina.setFont(fuente);
@@ -159,12 +161,14 @@ public class Impresora {
                                         //pagina.drawString("SOCIO",columna1 + 80,renglon);
                                         //pagina.drawString("FECHA",columna1 + 140,renglon);
                                         renglon=renglon + 15;
-                                        pagina.setFont(fuente4);
+                                        pagina.setFont(fuente7);
                                         cuota=(Cuotas)genera.Cargar(1);
                                         plan=(Planes)gen.Cargar(cliente.getListaDePrecios());
-                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+cuota.getVencimiento1(),columna1 -5,renglon);
+                                        vencimiento=cuota.getVencimiento1().substring(5);
+                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1 + 5,renglon);
                                         renglon=renglon + 10;
-                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+cuota.getVencimiento2(),columna1 -5,renglon);
+                                        vencimiento=cuota.getVencimiento2().substring(5);
+                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 5,renglon);
                                         pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 95,renglon);
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 150,renglon);
                                         pagina.setFont(fuente);
@@ -192,12 +196,12 @@ public class Impresora {
                                             */
                                         renglon=renglon + 105;
                                         //cuerpo
-
-                                        pagina.drawString(cliente.getRazonSocial(),columna1,renglon);
+                                        pagina.setFont(fuente6);
+                                        pagina.drawString(cliente.getRazonSocial(),columna1 + 15,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getDireccion(),columna1,renglon);
+                                        pagina.drawString(cliente.getDireccion(),columna1 + 15,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getLocalidad(),columna1,renglon);
+                                        pagina.drawString(cliente.getLocalidad(),columna1 + 15,renglon);
                                         // pie
                                         renglon=renglon + 20;
                                         //pagina.setFont(fuente);
@@ -205,12 +209,14 @@ public class Impresora {
                                         //pagina.drawString("SOCIO",columna1 + 80,renglon);
                                         //pagina.drawString("FECHA",columna1 + 140,renglon);
                                         renglon=renglon + 15;
-                                        pagina.setFont(fuente4);
+                                        pagina.setFont(fuente7);
                                         cuota=(Cuotas)genera.Cargar(1);
                                         plan=(Planes)gen.Cargar(cliente.getListaDePrecios());
-                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+cuota.getVencimiento1(),columna1 -5,renglon);
+                                        vencimiento=cuota.getVencimiento1().substring(5);
+                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1 + 5,renglon);
                                         renglon=renglon + 10;
-                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+cuota.getVencimiento2(),columna1 -5,renglon);
+                                        vencimiento=cuota.getVencimiento2().substring(5);
+                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 5,renglon);
                                         pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 95,renglon);
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 150,renglon);
                                         pagina.setFont(fuente);
