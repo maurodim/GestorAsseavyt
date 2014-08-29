@@ -95,7 +95,7 @@ public class Impresora {
                                 int b=0;
                                 int renglonNuevo=0;
                         switch (tipoComprobante){
-                            case 2:
+                            case 1:
                                                                 
                                 
                                 
@@ -246,7 +246,7 @@ public class Impresora {
                                 }
 
                                 break;
-                            case 1:
+                            case 2:
                                 //RECIBOS  
                                 //for(int aa=0;aa < 3;aa++){
                                 
@@ -614,45 +614,44 @@ public class Impresora {
 			pagina.setColor(Color.black);
                         DecimalFormat fr=new DecimalFormat("#####.##");
         
-                        pagina.drawImage(imagen,10,10,280,50,null);
+                        pagina.drawImage(imagen,130,10,280,50,null);
                         //pagina.drawString("RECIBO",200,140);
                         //pagina.setFont(fuente);
                         imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
-                        pagina.drawImage(imagen,60,120,160,70,null);
+                        pagina.drawImage(imagen,160,120,160,70,null);
                         Double num=Numeros.ConvertirStringADouble(numAConv);
-                        pagina.drawString("RECIBO",200,140);
+                        pagina.drawString("RECIBO",50,70);
                         pagina.setFont(fuente);
-                        pagina.drawString("N° "+nnum,200,150);
-                        pagina.drawLine(10, 80, 290, 80);
+                        pagina.drawString("N° "+nnum,90,70);
+                        pagina.drawLine(10, 80, 560, 80);
                         pagina.setFont(fuente4);
-                        pagina.drawString("Original",200,160);
-                        pagina.drawString("PERSONERÍA JURÍDICA 12815",10 ,90);
-                        pagina.drawString("San Martin 2819 - Pta Alta - Oficina 1", 10,100);
-                        pagina.drawString("Tel/Fax: (0342) 4532651 - (S3000FSI) Santa Fe", 10,110);
-                        pagina.drawString("E-mail: secretaria@aseavyt.org.ar - Web:www.aseavyt.org.ar",10,120);
-                        pagina.drawLine(10, 130, 290, 130);
+                        pagina.drawString("Original",430,70);
+                        pagina.drawString("PERSONERÍA JURÍDICA 12815",10 ,100);
+                        pagina.drawString("San Martin 2819 - Pta Alta - Oficina 1", 10,110);
+                        pagina.drawString("Tel/Fax: (0342) 4532651 - (S3000FSI) Santa Fe", 300,100);
+                        pagina.drawString("E-mail: secretaria@aseavyt.org.ar - Web:www.aseavyt.org.ar",300,110);
+                        pagina.drawLine(10, 130, 560, 130);
         //Double num=Numeros.ConvertirStringADouble(numAConv);
-        pagina.setFont(fuente8);
+        pagina.setFont(fuente);
         
-        pagina.drawString("Santa Fe :"+dia+" de "+mes+" de "+ano,10,140);
+        pagina.drawString("Santa Fe :"+dia+" de "+mes+" de "+ano,10,160);
         //pagina.drawLine(70, 110, 200, 110);
-        pagina.drawString("Recibí del Sr. "+comprobante.getCliente().getRazonSocial(),10,150);
-        pagina.drawString("Dirección :"+comprobante.getCliente().getDireccion(), 10,160);
-        pagina.drawString("CUIT :"+comprobante.getCliente().getNumeroDeCuit(),10,170);
+        pagina.drawString("Recibí del Sr. "+comprobante.getCliente().getRazonSocial(),10,170);
+        pagina.drawString("Dirección :"+comprobante.getCliente().getDireccion(), 300,170);
+        pagina.drawString("CUIT :"+comprobante.getCliente().getNumeroDeCuit(),10,180);
         //pagina.drawString("Cond. IVA :"+comprobante.getCliente().getCondicionIva(),10,180);
-        pagina.drawLine(10, 180, 290, 180);
-        pagina.drawString("La cantidad de Pesos "+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales, 10,200);
+        pagina.drawLine(10, 200, 560, 200);
+        pagina.drawString("La cantidad de Pesos "+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales, 10,220);
         //pagina.drawLine(90, 150, 440, 150);
-        pagina.drawString("en concepto de "+comprobante.getConcepto(),10,210);
+        pagina.drawString("en concepto de "+comprobante.getConcepto(),10,230);
         //pagina.drawLine(15, 170, 440, 170);
-        pagina.drawLine(15, 260, 100, 260);
+        pagina.drawLine(100, 260, 220, 260);
         pagina.setFont(fuente6);
-        pagina.drawString("Son $ "+mont,15,270);
+        pagina.drawString("Son $ "+mont,130,270);
         pagina.setFont(fuente3);
-        pagina.drawLine(15, 280, 100, 280);
-        pagina.drawLine(110, 320, 210, 320);
-        pagina.drawString("por ASEAVYT", 130, 330);
-        
+        pagina.drawLine(100, 280, 220, 280);
+        pagina.drawLine(410, 320, 510, 320);
+        pagina.drawString("por ASEAVYT", 430, 330);
         // ACA EMPIEZA EL DUPLICADO
         
         imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logo.jpg"));
@@ -661,45 +660,44 @@ public class Impresora {
 			pagina.setColor(Color.black);
                         fr=new DecimalFormat("#####.##");
         
-                        pagina.drawImage(imagen,300,10,280,50,null);
+                        pagina.drawImage(imagen,130,410,280,50,null);
                         //pagina.drawString("RECIBO",200,140);
                         //pagina.setFont(fuente);
                         imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
-                        pagina.drawImage(imagen,350,120,160,70,null);
+                        pagina.drawImage(imagen,160,520,160,70,null);
                         num=Numeros.ConvertirStringADouble(numAConv);
-                        pagina.drawString("RECIBO",500,140);
+                        pagina.drawString("RECIBO",50,470);
                         pagina.setFont(fuente);
-                        pagina.drawString("N° "+nnum,500,150);
-                        pagina.drawLine(300, 80, 590, 80);
+                        pagina.drawString("N° "+nnum,90,470);
+                        pagina.drawLine(10, 480, 560, 480);
                         pagina.setFont(fuente4);
-                        pagina.drawString("Duplicado",500,160);
-                        pagina.drawString("PERSONERÍA JURÍDICA 12815",300 ,90);
-                        pagina.drawString("San Martin 2819 - Pta Alta - Oficina 1", 300,100);
-                        pagina.drawString("Tel/Fax: (0342) 4532651 - (S3000FSI) Santa Fe", 300,110);
-                        pagina.drawString("E-mail: secretaria@aseavyt.org.ar - Web:www.aseavyt.org.ar",300,120);
-                        pagina.drawLine(300, 130, 590, 130);
+                        pagina.drawString("Duplicado",430,470);
+                        pagina.drawString("PERSONERÍA JURÍDICA 12815",10 ,500);
+                        pagina.drawString("San Martin 2819 - Pta Alta - Oficina 1", 10,510);
+                        pagina.drawString("Tel/Fax: (0342) 4532651 - (S3000FSI) Santa Fe", 300,500);
+                        pagina.drawString("E-mail: secretaria@aseavyt.org.ar - Web:www.aseavyt.org.ar",300,510);
+                        pagina.drawLine(10, 530, 560, 530);
         //Double num=Numeros.ConvertirStringADouble(numAConv);
         pagina.setFont(fuente8);
         
-        pagina.drawString("Santa Fe :"+dia+" de "+mes+" de "+ano,300,140);
+        pagina.drawString("Santa Fe :"+dia+" de "+mes+" de "+ano,10,560);
         //pagina.drawLine(70, 110, 200, 110);
-        pagina.drawString("Recibí del Sr. "+comprobante.getCliente().getRazonSocial(),300,150);
-        pagina.drawString("Dirección :"+comprobante.getCliente().getDireccion(), 300,160);
-        pagina.drawString("CUIT :"+comprobante.getCliente().getNumeroDeCuit(),300,170);
+        pagina.drawString("Recibí del Sr. "+comprobante.getCliente().getRazonSocial(),10,570);
+        pagina.drawString("Dirección :"+comprobante.getCliente().getDireccion(), 300,570);
+        pagina.drawString("CUIT :"+comprobante.getCliente().getNumeroDeCuit(),10,580);
         //pagina.drawString("Cond. IVA :"+comprobante.getCliente().getCondicionIva(),10,180);
-        pagina.drawLine(300, 180, 590, 180);
-        pagina.drawString("La cantidad de Pesos "+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales, 300,200);
+        pagina.drawLine(10, 590, 560, 590);
+        pagina.drawString("La cantidad de Pesos "+NumberToLetterConverter.convertNumberToLetter(num)+" con / "+decimales, 10,620);
         //pagina.drawLine(90, 150, 440, 150);
-        pagina.drawString("en concepto de "+comprobante.getConcepto(),300,210);
+        pagina.drawString("en concepto de "+comprobante.getConcepto(),10,630);
         //pagina.drawLine(15, 170, 440, 170);
-        pagina.drawLine(305, 260, 400, 260);
+        pagina.drawLine(100, 660, 220, 660);
         pagina.setFont(fuente6);
-        pagina.drawString("Son $ "+mont,305,270);
+        pagina.drawString("Son $ "+mont,130,670);
         pagina.setFont(fuente3);
-        pagina.drawLine(305, 280, 400, 280);
-        pagina.drawLine(410, 320, 510, 320);
-        pagina.drawString("por ASEAVYT", 430, 330);
-        
+        pagina.drawLine(100, 680, 220, 680);
+        pagina.drawLine(410, 720, 510, 720);
+        pagina.drawString("por ASEAVYT", 430, 730);
         pagina.dispose();
         pj.end();
     }
