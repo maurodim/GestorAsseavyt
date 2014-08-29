@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import objetos.Articulos;
 import objetos.Cajas;
 import objetos.ClientesTango;
@@ -447,6 +448,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                comprobantes.setCliente(cliente);
                comprobantes.setMontoTotal(Double.parseDouble(this.jTextField1.getText()));
                comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
+               comprobantes.setConcepto(JOptionPane.showInputDialog(this,"Ingrese el Concepto del Recibo",JOptionPane.QUESTION_MESSAGE));
                adeu.PagarComprobante(comprobantes);
                Impresora imprimir=new Impresora();
        try {

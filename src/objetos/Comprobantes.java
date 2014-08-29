@@ -40,6 +40,16 @@ public class Comprobantes implements Facturar{
     private Integer pagado;
     private static Integer numeroComprobante;
     private static Integer idComp;
+    private String concepto;
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+    
 
     public Integer getPagado() {
         return pagado;
