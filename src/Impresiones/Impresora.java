@@ -96,7 +96,7 @@ public class Impresora {
                                 int b=0;
                                 int renglonNuevo=0;
                         switch (tipoComprobante){
-                            case 1:
+                            case 9:
                                                                 
                                 
                                 
@@ -266,7 +266,8 @@ public class Impresora {
                                         columna1=columna1 - 290;
                                         System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }
-                                    //adeu.PagarComprobante(cliente);
+                                    adeu.ActualizarComprobante(cliente);
+                                    
                                 }
 
                                 break;

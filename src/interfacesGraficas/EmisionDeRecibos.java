@@ -7,16 +7,21 @@
 package interfacesGraficas;
 
 import Impresiones.Impresora;
+import interfaces.Adeudable;
 import interfaces.Busquedas;
 import interfaces.Generable;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import objetos.ClientesTango;
+import objetos.Comprobantes;
 import objetos.Cuotas;
+import objetos.Planes;
 import tablas.Personalizabla;
 
 /**
@@ -52,6 +57,7 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -98,14 +104,21 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jButton1.setText("Imprimir Recibos");
+        jButton1.setText("Imprimir Cupones");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Imprimir Recibos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -115,7 +128,9 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -123,6 +138,8 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -133,9 +150,9 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +187,7 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
         
         Impresora imp=new Impresora();
         try {
-            imp.imprimir(seleccion,1);
+            imp.imprimir(seleccion,9);
         } catch (SQLException ex) {
             Logger.getLogger(EmisionDeRecibos.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -180,9 +197,55 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        
+        
+                int cantidad=this.jTable1.getRowCount();
+                Comprobantes comprobantes=new Comprobantes();
+               Adeudable adeu=new ClientesTango();
+               Generable genera=new Cuotas();
+                                Cuotas cuota=new Cuotas();
+                                Planes plan=new Planes();
+                                Generable gen=new Planes();
+        ArrayList seleccion=new ArrayList();
+        int posicion=0;
+        Boolean tilde=false;
+        for(int i=0;i < cantidad;i++){
+            tilde=(Boolean) this.jTable1.getValueAt(i, 0);
+            if(tilde){
+                ClientesTango clie=new ClientesTango();
+                clie=(ClientesTango)listadoClientes.get(i);
+                
+                comprobantes.setCliente(clie);
+                cuota=(Cuotas)genera.Cargar(1);
+               plan=(Planes)gen.Cargar(clie.getListaDePrecios());
+               //monto=Double.parseDouble();
+               comprobantes.setMontoTotal(plan.getMonto1());
+               comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
+               comprobantes.setConcepto("Pago cuota societaria periodo "+plan.getDescripcion());
+               adeu.PagarComprobante(comprobantes);
+               Impresora imprimir=new Impresora();
+       try {
+           imprimir.ImprimirRecibos(comprobantes);
+       } catch (IOException ex) {
+           Logger.getLogger(CajaAbm.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
+                seleccion.add(clie);
+                System.out.println("seleccionado "+clie.getRazonSocial()+" num "+i+" id "+clie.getCodigoId()+" cant"+cantidad);
+            }
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

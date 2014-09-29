@@ -665,7 +665,13 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
 
     @Override
     public Object ActualizarComprobante(Object objeto) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ClientesTango cliente=new ClientesTango();
+        cliente=(ClientesTango)objeto;
+        String sql="update movimientosclientes set estado=1 where numeroproveedor="+cliente.getCodigoId()+" and tipocomprobante=9";
+        System.out.println(sql);
+        Transaccionable tra=new ConeccionLocal();
+        tra.guardarRegistro(sql);
+        return cliente;
     }
 
     @Override
@@ -701,7 +707,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
            if(cliente.getCodigoId()==1){
                
            }else{
-           sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,pagado,idcaja,idCuota) values ("+cliente.getCodigoId()+","+cliente.getMontoCuota()+","+cliente.getIdMovimientoCliente()+","+Inicio.usuario.getNumeroId()+",1,"+Inicio.sucursal+",0,0,0,"+cliente.getIdCuota()+")";
+           sql="insert into movimientosclientes (numeroProveedor,monto,numeroComprobante,idUsuario,tipoComprobante,idSucursal,idRemito,pagado,idcaja,idCuota,estado) values ("+cliente.getCodigoId()+","+cliente.getMontoCuota()+","+cliente.getIdMovimientoCliente()+","+Inicio.usuario.getNumeroId()+",9,"+Inicio.sucursal+",0,0,0,"+cliente.getIdCuota()+",0)";
            tra.guardarRegistro(sql);          
            }
        }
@@ -709,7 +715,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
     }
     public ArrayList listarCuotas(){
         ArrayList listado=new ArrayList();
-        String sql="select numeroproveedor,numerocomprobante,idcuota,(select listcli.razon_soci from listcli where listcli.codmmd=movimientosclientes.numeroproveedor)as nombre,monto from movimientosclientes where pagado=0 and tipocomprobante=1";
+        String sql="select numeroproveedor,numerocomprobante,idcuota,(select listcli.razon_soci from listcli where listcli.codmmd=movimientosclientes.numeroproveedor)as nombre,monto from movimientosclientes where estado=0 and tipocomprobante=9";
         Transaccionable tra=new ConeccionLocal();
         ResultSet rs=tra.leerConjuntoDeRegistros(sql);
             try {

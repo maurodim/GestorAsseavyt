@@ -7,6 +7,7 @@ package interfacesGraficas;
 import Actualizaciones.Actualiza;
 
 import Excel.InformeMensual;
+import Excel.InformesClientes;
 import Impresiones.Impresora;
 import interfaces.Cajeables;
 import java.awt.Dimension;
@@ -170,6 +171,7 @@ public class Inicio extends javax.swing.JFrame {
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -298,6 +300,14 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem13);
+
+        jMenuItem14.setText("Informe Cta Cte");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem14);
 
         jMenuBar1.add(jMenu6);
 
@@ -553,6 +563,16 @@ public class Inicio extends javax.swing.JFrame {
         emisor.toFront();
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+       InformesClientes inff=new InformesClientes();
+        try {
+            inff.InfomeCtaCte(0);
+        } catch (SQLException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -623,6 +643,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;

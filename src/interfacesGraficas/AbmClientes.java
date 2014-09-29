@@ -5,12 +5,16 @@
 package interfacesGraficas;
 
 import Conversores.Numeros;
+import Excel.InformesClientes;
 import interfaces.Busquedas;
 import interfaces.Facturar;
+import java.sql.SQLException;
 
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetos.ClientesTango;
 import tablas.MiModeloTablaArticulos;
 
@@ -222,7 +226,12 @@ public class AbmClientes extends javax.swing.JInternalFrame {
         ClientesTango cliente=new ClientesTango();
         cliente=(ClientesTango)listadoClientes.get(posicion);
         //cliente.eliminarSocio(cliente.getCodigoId());
-        
+        InformesClientes info=new InformesClientes();
+        try {
+            info.InfomeCtaCte(cliente.getCodigoId());
+        } catch (SQLException ex) {
+            Logger.getLogger(AbmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
