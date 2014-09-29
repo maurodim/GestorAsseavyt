@@ -223,7 +223,8 @@ public class EmisionDeRecibos extends javax.swing.JInternalFrame {
                //monto=Double.parseDouble();
                comprobantes.setMontoTotal(plan.getMonto1());
                comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
-               comprobantes.setConcepto("Pago cuota societaria periodo "+plan.getDescripcion());
+               //vencimiento=cuota.getVencimiento1().substring(5);
+               comprobantes.setConcepto("Pago cuota societaria periodo "+cuota.getVencimiento1().substring(5));
                adeu.PagarComprobante(comprobantes);
                Impresora imprimir=new Impresora();
        try {
