@@ -5,6 +5,7 @@
 package Excel;
 
 import interfaces.Transaccionable;
+import interfacesGraficas.Inicio;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -755,7 +756,7 @@ public class InformeMensual {
             
         rs.close();
         //texto+="\r\n";
-        String ruta="C://Informes//informemensual.xls";
+        String ruta="C://Informes//"+Inicio.fechaDia+" _ informecaja.xls";
         try {
             FileOutputStream elFichero=new FileOutputStream(ruta);
             try {

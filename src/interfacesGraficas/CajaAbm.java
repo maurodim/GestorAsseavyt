@@ -39,6 +39,8 @@ public class CajaAbm extends javax.swing.JInternalFrame {
     private ArrayList listadoP;
     private ArrayList listadoC;
     private Integer operacionSelect=0;
+    private Double totalEfectivoEnCaja;
+    
     /**
      * Creates new form CajaAbm
      */
@@ -131,6 +133,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
         tablaCaja.addColumn("MOVIMIENTO");
         tablaCaja.addColumn("MONTO");
         Object[] fila=new Object[3];
+        totalEfectivoEnCaja=0.00;
         while(itC.hasNext()){
             cajj=(Cajas)itC.next();
             fila[0]=cajj.getNumeroDeComprobante();
@@ -147,6 +150,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
             }
 
             fila[2]=cajj.getMontoMovimiento();
+            totalEfectivoEnCaja=totalEfectivoEnCaja + cajj.getMontoMovimiento();
             tablaCaja.addRow(fila);
         }
         ModificarLabels();
@@ -166,14 +170,14 @@ public class CajaAbm extends javax.swing.JInternalFrame {
             operaciones=(Operaciones)ilT.next();
             jComboBox1.addItem(operaciones.getDescripcion());
         }
-        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseClicked(evt);
-            }
-        });
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
             }
         });
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -289,7 +293,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jLabel5.setText("Saldo Inicial de Caja:");
@@ -297,8 +301,6 @@ public class CajaAbm extends javax.swing.JInternalFrame {
         jLabel6.setText("Total Ventas");
 
         jLabel7.setText("Total Gastos :");
-
-        jLabel8.setText("Total Efect en Caja:");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -428,9 +430,11 @@ public class CajaAbm extends javax.swing.JInternalFrame {
             fact.setIdCaja(Inicio.caja.getNumero());
             fact.setIdUsuario(Inicio.usuario.getNumero());
             fact.setIdSucursal(Inicio.sucursal);
+            
             String mmt=this.jTextField1.getText();
             Double montot=Double.parseDouble(this.jTextField1.getText());
             montot=montot * -1;
+            monto=montot;
             fact.setMontoFinal(montot);
             fact.setObservaciones(this.jTextField2.getText());
                ade.PagarComprobante(fact);
@@ -446,6 +450,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                ClientesTango cliente=new ClientesTango();
                cliente=(ClientesTango)listadoC.get(this.jComboBox2.getSelectedIndex());
                comprobantes.setCliente(cliente);
+               monto=Double.parseDouble(this.jTextField1.getText());
                comprobantes.setMontoTotal(Double.parseDouble(this.jTextField1.getText()));
                comprobantes.setFechaEmision(Date.valueOf(Inicio.fechaDia));
                comprobantes.setConcepto(JOptionPane.showInputDialog(this,"Ingrese el Concepto del Recibo",JOptionPane.QUESTION_MESSAGE));
@@ -487,18 +492,20 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                caj.NuevoMovimiento(Inicio.caja);
                break;
        }
+        totalEfectivoEnCaja=totalEfectivoEnCaja + monto;
         AgregarRenglonTabla();
         this.jTextField2.setText("");
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         cargarLista();
     }//GEN-LAST:event_jTable1MouseClicked
     private void ModificarLabels(){
-        this.jLabel6.setText("T. INGRESOS "+totalVentas);
-    this.jLabel7.setText("T. EGRESOS "+totalGastos);
+        //this.jLabel6.setText("T. INGRESOS "+totalVentas);
+    //this.jLabel7.setText("T. EGRESOS "+totalGastos);
     totalEfect=Inicio.caja.getSaldoInicial()+totalVentas + totalGastos;
-    this.jLabel8.setText("T. EFECT EN CAJA "+totalEfect);
+    this.jLabel8.setText("T. EFECT EN CAJA "+totalEfectivoEnCaja);
     }
     private void ListarProveedores(){
         Proveedores fact=new Proveedores();

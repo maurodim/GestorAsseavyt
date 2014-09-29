@@ -686,6 +686,7 @@ public class ClientesTango implements Busquedas,Facturar,Adeudable{
        tra.guardarRegistro(sql);
        GuardarNumeroRecibo();
        factProv.setNumero(numeroRecibo);
+       
        return factProv;
     }
     public void emitirCuotas(ArrayList listado){
