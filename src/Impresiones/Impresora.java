@@ -642,8 +642,8 @@ public class Impresora {
                         pagina.drawImage(imagen,130,10,280,50,null);
                         //pagina.drawString("RECIBO",200,140);
                         //pagina.setFont(fuente);
-                        imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
-                        pagina.drawImage(imagen,160,120,160,70,null);
+                        //imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
+                        //pagina.drawImage(imagen,160,120,160,70,null);
                         Double num=Numeros.ConvertirStringADouble(numAConv);
                         pagina.drawString("RECIBO",50,70);
                         pagina.setFont(fuente);
@@ -688,8 +688,8 @@ public class Impresora {
                         pagina.drawImage(imagen,130,430,280,50,null);
                         //pagina.drawString("RECIBO",200,140);
                         //pagina.setFont(fuente);
-                        imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
-                        pagina.drawImage(imagen,160,540,160,70,null);
+                        //imagen= ImageIO.read(new File("C://Gestion//imagen//fondoRec.jpg"));
+                        //pagina.drawImage(imagen,160,540,160,70,null);
                         num=Numeros.ConvertirStringADouble(numAConv);
                         pagina.drawString("RECIBO",50,490);
                         pagina.setFont(fuente);
