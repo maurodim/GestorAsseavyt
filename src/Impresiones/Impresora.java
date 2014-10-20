@@ -140,7 +140,7 @@ public class Impresora {
                                         //Graphics g = pj.getGraphics (); 
                                         //g.drawImage (imagen, 0, 0,798, 497, Color.white, null);
                                         //pagina=g;
-                                        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logo.jpg"));
+                                        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logogrande.jpg"));
                                         pagina.drawImage(imagen,10,renglon,270,63, null);
                                         renglonNuevo= renglon + 53;
                                         System.out.println("renglonNuevo "+renglonNuevo);
@@ -155,7 +155,7 @@ public class Impresora {
                                         //pagina.setFont(fuente3);
                                         //pagina.drawString("CUIT.:30-61200162-2",columna,renglon);
                                         //pagina.setFont(fuente1);
-                                        imagen= ImageIO.read(new File("C://Gestion//imagen//firma.png"));
+                                        imagen= ImageIO.read(new File("C://Gestion//imagen//Firma.png"));
                                         
                                         renglon=renglon + 105;
                                         pagina.drawImage(imagen,230,renglon,30,63, null);
@@ -195,7 +195,7 @@ public class Impresora {
                                     }else{
                                         columna=columna +290;
                                         columna1=columna1 + 290;
-                                        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logo.jpg"));
+                                        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logogrande.jpg"));
                                         pagina.drawImage(imagen,300,renglonImagen,270,63, null);
                                         
                                         renglonNuevo= renglon + 53;
@@ -211,7 +211,7 @@ public class Impresora {
                                         //pagina.setFont(fuente3);
                                         //pagina.drawString("CUIT.:30-61200162-2",columna,renglon);
                                         //pagina.setFont(fuente1);
-                                        imagen= ImageIO.read(new File("C://Gestion//imagen//firma.png"));
+                                        imagen= ImageIO.read(new File("C://Gestion//imagen//Firma.png"));
                                         
                                         renglon=renglon + 105;
                                         pagina.drawImage(imagen,columna1 + 230,renglon,30,63, null);
@@ -633,7 +633,7 @@ public class Impresora {
         posi++;
         String decimales=mont.substring(posi);
         pagina = pj.getGraphics();
-        BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logo.jpg"));
+        BufferedImage imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logoChico.jpg"));
                         //pagina=pj.jobAttributes;
 			pagina.setFont(fuente6);
 			pagina.setColor(Color.black);
@@ -679,7 +679,7 @@ public class Impresora {
         pagina.drawString("por ASEAVYT", 430, 330);
         // ACA EMPIEZA EL DUPLICADO
         
-        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logo.jpg"));
+        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logoChico.jpg"));
                         //pagina=pj.jobAttributes;
 			pagina.setFont(fuente6);
 			pagina.setColor(Color.black);
