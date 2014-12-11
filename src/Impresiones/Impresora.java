@@ -141,15 +141,15 @@ public class Impresora {
                                         //Graphics g = pj.getGraphics (); 
                                         //g.drawImage (imagen, 0, 0,798, 497, Color.white, null);
                                         //pagina=g;
-                                        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logogrande.jpg"));
-                                        pagina.drawImage(imagen,10,renglon,270,63, null);
+                                        //imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logogrande.jpg"));
+                                        //pagina.drawImage(imagen,10,renglon,270,63, null);
                                         renglonNuevo= renglon + 53;
                                         System.out.println("renglonNuevo "+renglonNuevo);
                                         
-                                        pagina.drawString("San Martin 2819 P.A. Of. 1 - Tel: 0342-4532651",15,renglonNuevo + 20);
+                                        //pagina.drawString("San Martin 2819 P.A. Of. 1 - Tel: 0342-4532651",15,renglonNuevo + 20);
                                         //renglon=renglon + 10;
-                                        pagina.drawString("E-mail: aseavyt@gigared.com - CUIT.:30-61200162-2",15,renglonNuevo + 30);
-                                        pagina.drawLine(10, renglonNuevo + 40, 290,renglonNuevo + 40);
+                                        //pagina.drawString("E-mail: aseavyt@gigared.com - CUIT.:30-61200162-2",15,renglonNuevo + 30);
+                                        //pagina.drawLine(10, renglonNuevo + 40, 290,renglonNuevo + 40);
                                         //renglon=renglon + 10;
                                         //pagina.drawString("E-mail: aseavyt@gigared.com",columna,renglon);
                                         //renglon=renglon + 10;
@@ -158,54 +158,54 @@ public class Impresora {
                                         //pagina.setFont(fuente1);
                                         imagen= ImageIO.read(new File("C://Gestion//imagen//Firma.png"));
                                         
-                                        renglon=renglon + 105;
-                                        pagina.drawImage(imagen,230,renglon,30,63, null);
+                                        renglon=renglonNuevo + 40;
+                                        pagina.drawImage(imagen,200,renglon - 20,30,63, null);
                                         //cuerpo
                                         pagina.setFont(fuente6);
-                                        pagina.drawString(cliente.getRazonSocial(),columna1 + 15,renglon);
+                                        pagina.drawString(cliente.getRazonSocial(),columna1 + 18,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getDireccion(),columna1 + 15,renglon);
+                                        pagina.drawString(cliente.getDireccion(),columna1 + 18,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getLocalidad(),columna1 + 15,renglon);
+                                        pagina.drawString(cliente.getLocalidad(),columna1 + 18,renglon);
                                         // pie
                                         renglon=renglon + 20;
                                         pagina.setFont(fuente);
-                                        pagina.drawString("IMPORTE",columna1,renglon);
-                                        pagina.drawString("SOCIO",columna1 + 80,renglon);
-                                        pagina.drawString("FECHA",columna1 + 140,renglon);
-                                        renglon=renglon + 15;
-                                        pagina.setFont(fuente7);
+                                        //pagina.drawString("IMPORTE",columna1,renglon);
+                                        //pagina.drawString("SOCIO",columna1 + 80,renglon);
+                                        //pagina.drawString("FECHA",columna1 + 140,renglon);
+                                        renglon=renglon + 38;
+                                        pagina.setFont(fuente9);
                                         cuota=(Cuotas)genera.Cargar(1);
                                         plan=(Planes)gen.Cargar(cliente.getListaDePrecios());
                                         vencimiento=cuota.getVencimiento1().substring(5);
-                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1,renglon);
-                                        renglon=renglon + 10;
+                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1+18,renglon);
+                                        renglon=renglon + 7;
                                         vencimiento=cuota.getVencimiento2().substring(5);
-                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1,renglon);
+                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 18,renglon);
                                         pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 95,renglon);
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 150,renglon);
                                         pagina.setFont(fuente9);
-                                        pagina.drawString("CPN. JOSE G GIANDOMENICO",columna1 + 190,renglon);
-                                        pagina.drawString("TESORERO",columna1 + 210,renglon + 10);
+                                        pagina.drawString("CPN. JOSE G GIANDOMENICO",columna1 + 160,renglon-47);
+                                        pagina.drawString("TESORERO",columna1 + 180,renglon -35);
                                         pagina.setFont(fuente);
                                         //pagina.drawImage(imagen,columna1,renglonImagen,null);
                                         System.out.println("renglon tiene que estar en 10 esta en "+renglon);
-                                        renglon=renglon - 174;
+                                        renglon=renglon - 182;
                                         //renglonImagen=renglon - 10;
                                         System.out.println("puntos "+columna+" "+columna1+" "+renglon+" "+renglonImagen+" "+a);
                                     }else{
                                         columna=columna +290;
                                         columna1=columna1 + 290;
-                                        imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logogrande.jpg"));
-                                        pagina.drawImage(imagen,300,renglonImagen,270,63, null);
+                                        //imagen= ImageIO.read(new File("C://Gestion//imagen//aseavyt-logogrande.jpg"));
+                                        //pagina.drawImage(imagen,300,renglonImagen,270,63, null);
                                         
                                         renglonNuevo= renglon + 53;
                                         System.out.println("renglonNuevo "+renglonNuevo);
                                         
-                                        pagina.drawString("San Martin 2819 P.A. Of. 1 - Tel: 0342-4532651",columna1,renglonNuevo + 20);
+                                        //pagina.drawString("San Martin 2819 P.A. Of. 1 - Tel: 0342-4532651",columna1,renglonNuevo + 20);
                                         //renglon=renglon + 10;
-                                        pagina.drawString("E-mail: aseavyt@gigared.com - CUIT.:30-61200162-2",columna1,renglonNuevo + 30);
-                                        pagina.drawLine(columna1, renglonNuevo + 40, columna1 + 290,renglonNuevo + 40);
+                                        //pagina.drawString("E-mail: aseavyt@gigared.com - CUIT.:30-61200162-2",columna1,renglonNuevo + 30);
+                                        //pagina.drawLine(columna1, renglonNuevo + 40, columna1 + 290,renglonNuevo + 40);
                                         //renglon=renglon + 10;
                                         //pagina.drawString("E-mail: aseavyt@gigared.com",columna,renglon);
                                         //renglon=renglon + 10;
@@ -214,8 +214,8 @@ public class Impresora {
                                         //pagina.setFont(fuente1);
                                         imagen= ImageIO.read(new File("C://Gestion//imagen//Firma.png"));
                                         
-                                        renglon=renglon + 105;
-                                        pagina.drawImage(imagen,columna1 + 230,renglon,30,63, null);
+                                        renglon=renglonNuevo + 40;
+                                        pagina.drawImage(imagen,columna1 + 200,renglon -20,30,63, null);
                                         
                                         //pagina.drawImage(imagen,columna1,renglon, null);
                                           /*  
@@ -232,35 +232,35 @@ public class Impresora {
                                         //renglon=renglon + 105;
                                         //cuerpo
                                         pagina.setFont(fuente6);
-                                        pagina.drawString(cliente.getRazonSocial(),columna1 + 15,renglon);
+                                        pagina.drawString(cliente.getRazonSocial(),columna1 + 18,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getDireccion(),columna1 + 15,renglon);
+                                        pagina.drawString(cliente.getDireccion(),columna1 + 18,renglon);
                                         renglon=renglon + 12;
-                                        pagina.drawString(cliente.getLocalidad(),columna1 + 15,renglon);
+                                        pagina.drawString(cliente.getLocalidad(),columna1 + 18,renglon);
                                         // pie
                                         renglon=renglon + 20;
-                                        pagina.setFont(fuente);
-                                        pagina.drawString("IMPORTE",columna1,renglon);
-                                        pagina.drawString("SOCIO",columna1 + 80,renglon);
-                                        pagina.drawString("FECHA",columna1 + 140,renglon);
-                                        renglon=renglon + 15;
-                                        pagina.setFont(fuente7);
+                                        //pagina.setFont(fuente);
+                                        //pagina.drawString("IMPORTE",columna1,renglon);
+                                        //pagina.drawString("SOCIO",columna1 + 80,renglon);
+                                        //pagina.drawString("FECHA",columna1 + 140,renglon);
+                                        renglon=renglon + 38;
+                                        pagina.setFont(fuente9);
                                         cuota=(Cuotas)genera.Cargar(1);
                                         plan=(Planes)gen.Cargar(cliente.getListaDePrecios());
                                         vencimiento=cuota.getVencimiento1().substring(5);
-                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1 + 5,renglon);
-                                        renglon=renglon + 10;
+                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1 + 18,renglon);
+                                        renglon=renglon + 7;
                                         vencimiento=cuota.getVencimiento2().substring(5);
-                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 5,renglon);
+                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 18,renglon);
                                         pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 95,renglon);
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 150,renglon);
                                         pagina.setFont(fuente9);
-                                        pagina.drawString("CPN. JOSE G GIANDOMENICO",columna1 + 190,renglon);
-                                        pagina.drawString("TESORERO",columna1 + 210,renglon + 10);
+                                        pagina.drawString("CPN. JOSE G GIANDOMENICO",columna1 + 170,renglon - 47);
+                                        pagina.drawString("TESORERO",columna1 + 190,renglon - 35);
                                         pagina.setFont(fuente);
                                         pagina.setFont(fuente);
                                         System.out.println("renglon tiene que estar en 10 esta en "+renglon);
-                                        renglon=renglon + 10;
+                                        renglon=renglon + 20;
                                         renglonImagen=renglon;
                                         a=0;
                                         columna=columna -290;
