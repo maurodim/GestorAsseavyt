@@ -178,10 +178,10 @@ public class Impresora {
                                         cuota=(Cuotas)genera.Cargar(1);
                                         plan=(Planes)gen.Cargar(cliente.getListaDePrecios());
                                         vencimiento=cuota.getVencimiento1().substring(5);
-                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1+18,renglon);
+                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1+11,renglon);
                                         renglon=renglon + 7;
                                         vencimiento=cuota.getVencimiento2().substring(5);
-                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 18,renglon);
+                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 11,renglon);
                                         pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 95,renglon);
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 150,renglon);
                                         pagina.setFont(fuente9);
@@ -248,10 +248,10 @@ public class Impresora {
                                         cuota=(Cuotas)genera.Cargar(1);
                                         plan=(Planes)gen.Cargar(cliente.getListaDePrecios());
                                         vencimiento=cuota.getVencimiento1().substring(5);
-                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1 + 18,renglon);
+                                        pagina.drawString("$"+plan.getMonto1()+" hasta "+vencimiento,columna1 + 11,renglon);
                                         renglon=renglon + 7;
                                         vencimiento=cuota.getVencimiento2().substring(5);
-                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 18,renglon);
+                                        pagina.drawString("$"+plan.getMonto2()+" hasta "+vencimiento,columna1 + 11,renglon);
                                         pagina.drawString(String.valueOf(cliente.getCodigoId()),columna1 + 95,renglon);
                                         pagina.drawString(cuota.getPeriodo(),columna1 + 150,renglon);
                                         pagina.setFont(fuente9);
