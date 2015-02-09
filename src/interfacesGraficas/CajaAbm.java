@@ -60,13 +60,14 @@ public class CajaAbm extends javax.swing.JInternalFrame {
         totalVentas=0.00;
         totalGastos=0.00;
         totalEfect=0.00;
-        Cajas cajj=new Cajas();
+        
         jTable1.setModel(tablaCaja);
         tablaCaja.addColumn("COMPROBANTE");
         tablaCaja.addColumn("MOVIMIENTO");
         tablaCaja.addColumn("MONTO");
         Object[] fila=new Object[3];
         while(itC.hasNext()){
+            Cajas cajj=new Cajas();
             cajj=(Cajas)itC.next();
             fila[0]=cajj.getNumeroDeComprobante();
             fila[1]=cajj.getDescripcionMovimiento();
@@ -83,6 +84,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
 
             fila[2]=cajj.getMontoMovimiento();
             tablaCaja.addRow(fila);
+            
         }
         ModificarLabels();
         
@@ -402,6 +404,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
             case 13:
                 ListarClientes();
                 break;
+            
             default:
                  Inicio.caja.setTipoMovimiento(operaciones.getId());  
                  operacionSelect=operaciones.getId();
@@ -468,10 +471,12 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                break;
            case 12:
                monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField1.getText()));
-               Inicio.caja.setDescripcionMovimiento(this.jTextField2.getText());
+               Inicio.caja.setObservaciones(this.jTextField2.getText());
+               Inicio.caja.setDescripcionMovimiento("Gasto de Caja");
                Inicio.caja.setMontoMovimiento(monto);
                
                caj.NuevoGasto(Inicio.caja);
+               this.jTextField2.setText("");
                break;
            case 4:
                monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField1.getText()));
@@ -481,9 +486,12 @@ public class CajaAbm extends javax.swing.JInternalFrame {
                break;
            case 7:
                monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField1.getText()));
+               Inicio.caja.setDescripcionMovimiento("Ingreso de Caja");
+               Inicio.caja.setObservaciones(this.jTextField2.getText());
                Inicio.caja.setMontoMovimiento(monto);
                
                caj.NuevoMovimiento(Inicio.caja);
+               this.jTextField2.setText("");
                break;
            case 9:
                monto=Numeros.ConvertirStringADouble(String.valueOf(this.jTextField1.getText()));
@@ -495,6 +503,7 @@ public class CajaAbm extends javax.swing.JInternalFrame {
         totalEfectivoEnCaja=totalEfectivoEnCaja + monto;
         AgregarRenglonTabla();
         this.jTextField2.setText("");
+        this.dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -571,8 +580,14 @@ public class CajaAbm extends javax.swing.JInternalFrame {
         this.jLabel4.setVisible(true);
         this.jTextField2.setVisible(true);
         }else{
+            
             this.jLabel4.setVisible(false);
             this.jTextField2.setVisible(false);
+            if(operacionSelect==7){
+                this.jLabel4.setText("MOTIVO");
+        this.jLabel4.setVisible(true);
+        this.jTextField2.setVisible(true);
+            }
         }
         
         this.jButton2.setText("GUARDAR MOVIMIENTO");

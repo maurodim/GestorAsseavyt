@@ -58,6 +58,16 @@ public class Cajas implements Cajeables{
     private static ArrayList listadoDeComprobantes=new ArrayList();
     private Integer sucursal;
     private Usuarios usuario;
+    private String observaciones;
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+    
 
     public Integer getSucursal() {
         return sucursal;
@@ -228,6 +238,7 @@ public class Cajas implements Cajeables{
         this.tipoDeComprobante=0;
         this.tipoMovimiento=0;
         this.tipo=0;
+        this.descripcionMovimiento="";
         LeerCajaAdministradora();
     }
 
@@ -621,7 +632,7 @@ public class Cajas implements Cajeables{
         if(num==0){
             caj.setNumeroDeComprobante(NumeroDeComprobanteActivoMovCaja());
         }
-        String sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+caj.getNumeroDeComprobante()+","+caj.getTipoDeComprobante()+","+caj.getMontoMovimiento()+","+caj.getTipoMovimiento()+","+caj.getNumero()+",0,0,1)";
+        String sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+caj.getNumeroDeComprobante()+","+caj.getTipoDeComprobante()+","+caj.getMontoMovimiento()+","+caj.getTipoMovimiento()+","+caj.getNumero()+",0,0,1,'"+caj.getObservaciones()+"')";
         Transaccionable tra=new ConeccionLocal();
         ch=tra.guardarRegistro(sql);
         
@@ -807,7 +818,7 @@ public class Cajas implements Cajeables{
             tra=new Conecciones();
         
         */
-         sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+caj.getNumeroDeComprobante()+","+caj.getTipoDeComprobante()+","+monto+","+caj.getTipoMovimiento()+","+caj.getNumero()+",0,2,0,'"+caj.getDescripcionMovimiento()+"')";
+         sql="insert into movimientoscaja (numeroUsuario,numeroSucursal,numeroComprobante,tipoComprobante,monto,tipoMovimiento,idCaja,idCliente,tipoCliente,pagado,observaciones) values ("+Inicio.usuario.getNumeroId()+","+Inicio.sucursal+","+caj.getNumeroDeComprobante()+","+caj.getTipoDeComprobante()+","+monto+","+caj.getTipoMovimiento()+","+caj.getNumero()+",0,2,0,'"+caj.getObservaciones()+"')";
     /*    
     }else{
     */ 
