@@ -4,14 +4,19 @@
  */
 package gestoraseavyt;
 
+import Configuraciones.Configuracion;
 import interfacesGraficas.LoguinBbsGestion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.ParserConfigurationException;
 import objetos.ConeccionLocal;
 import objetos.Usuarios;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -22,7 +27,7 @@ public class GestorAseavyt {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, MalformedURLException, ParserConfigurationException, SAXException {
          
         
         File folder=new File("C:\\Gestion");
@@ -108,11 +113,15 @@ public class GestorAseavyt {
             e2.printStackTrace();
          }
       }
+        Configuracion config=new Configuracion();
+        
+        if(config.getEstado()==1){
         ArrayList usuariosList=new ArrayList();
         Usuarios usuarios=new Usuarios();
         usuariosList=usuarios.listarUsuario();
         LoguinBbsGestion lBb=new LoguinBbsGestion();
         lBb.setVisible(true);
         lBb.pack();
+        }
     }
 }
